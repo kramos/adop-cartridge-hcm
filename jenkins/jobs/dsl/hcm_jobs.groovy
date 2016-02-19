@@ -82,7 +82,7 @@ buildAppJob.with{
   publishers{
     downstreamParameterized{
       trigger(projectFolderName + "/2_BuildValidation"){
-        condition("STABLE")
+        condition("SUCCESS")
       }
     }
   }
