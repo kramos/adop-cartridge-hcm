@@ -79,11 +79,6 @@ buildAppJob.with{
       }
     }
   }
-  steps {
-    maven{
-      mavenInstallation("ADOP Maven")
-    }
-  }
   publishers{
     archiveArtifacts("**/*")
     downstreamParameterized{
