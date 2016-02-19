@@ -21,7 +21,7 @@ def buildValJob = mavenJob(projectFolderName + "/2_BuildValidation")
 def deployJob = freeStyleJob(projectFolderName + "/3_Deploy")
 def validationJob = freeStyleJob(projectFolderName + "/4_Validation")
 def createIssueJob = freeStyleJob(projectFolderName + "/CreateIssue")
-def createIssueJob = freeStyleJob(projectFolderName + "/CreateProject")
+def createProjectJob = freeStyleJob(projectFolderName + "/CreateProject")
 
 // Views
 def pipelineView = buildPipelineView(projectFolderName + "/HCM_Automation")
