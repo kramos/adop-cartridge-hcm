@@ -29,7 +29,7 @@ def pipelineView = buildPipelineView(projectFolderName + "/HCM_Automation")
 pipelineView.with{
     title('HCM Automation')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/HCM_Automation")
+    selectedJob(projectFolderName + "/1_Build")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
@@ -80,14 +80,9 @@ buildAppJob.with{
     }
   }
   publishers{
-    archiveArtifacts("**/*")
     downstreamParameterized{
-      trigger(projectFolderName + "/Reference_Application_Unit_Tests"){
-        condition("UNSTABLE_OR_BETTER")
-        parameters{
-          predefinedProp("B",'${BUILD_NUMBER}')
-          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
-        }
+      trigger(projectFolderName + "/2_BuildValidation"){
+        condition("STABLE")
       }
     }
   }
