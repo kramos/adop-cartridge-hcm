@@ -46,7 +46,7 @@ buildAppJob.with{
   scm{
     git{
       remote{
-        url(wacGitRepoUrl)
+        url(configGitRepoUrl)
         credentials("adop-jenkins-master")
       }
       branch("*/master")
@@ -66,7 +66,7 @@ buildAppJob.with{
         gerritxml / 'gerritProjects' {
           'com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject' {
             compareType("PLAIN")
-            pattern(projectFolderName + "/" + wacGitRepo)
+            pattern(projectFolderName + "/" + configGitRepo)
             'branches' {
               'com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch' {
                 compareType("PLAIN")
