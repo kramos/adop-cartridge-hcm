@@ -3,12 +3,12 @@ def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 
 // Variables
-def HCM_Configuration = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + HCM_Configurations
-def Oracle_WAC = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + OracleHCM_Java
-def Create_Project = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + OracleHCM_CreateProject
-def OracleHCM_Validation = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + OracleHCM_Validation
-def Pre_defined_defined_2 = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + Predefined_Configuration_2
-def Pre_defined_defined_3 = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + Predefined_Configurations_3
+def HCM_Configuration = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Configurations"
+def Oracle_WAC = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/OracleHCM_Java"
+def Create_Project = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/OracleHCM_CreateProject"
+def OracleHCM_Validation = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/OracleHCM_Validation"
+def Pre_defined_defined_2 = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/Predefined_Configuration_2"
+def Pre_defined_defined_3 = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/Predefined_Configurations_3"
 
 // Jobs
 def build = mavenJob(projectFolderName + "/1_Build")
