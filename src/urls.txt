@@ -1,5 +1,5 @@
 https://github.com/paoloxide/HCM_Configurations.git
 https://github.com/paoloxide/OracleHCM_Java.git
 https://github.com/paoloxide/OracleHCM_Validation.git
-https://github.com/paoloxide/Predefined_configuration(2)
-https://github.com/paoloxide/Predefined_configurations(3)
+https://github.com/paoloxide/Predefined_configuration_2
+https://github.com/paoloxide/Predefined_configuration_3
