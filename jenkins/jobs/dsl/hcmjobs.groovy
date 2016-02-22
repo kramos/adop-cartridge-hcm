@@ -179,7 +179,7 @@ deploy.with{
   publishers{
     downstreamParameterized{
       trigger(projectFolderName + "/CreateIssue"){
-        condition("FAILURE")
+        condition("FAILED")
       }
     }
   }
