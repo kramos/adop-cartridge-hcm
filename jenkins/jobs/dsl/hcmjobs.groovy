@@ -16,7 +16,7 @@ def buildvalidation = mavenJob(projectFolderName + "/2_BuildValidation")
 def deploy = freeStyleJob(projectFolderName + "/3_Deploy")
 def validate = freeStyleJob(projectFolderName + "/4_Validate")
 def createissue = freeStyleJob(projectFolderName + "/CreateIssue")
-def createproject = mavenJob(projectFolderName + "/CreateProject")
+def createproject = freeStyleJob(projectFolderName + "/CreateProject")
 def template1 = freeStyleJob(projectFolderName + "/Deploy_template_1")
 def template2 = freeStyleJob(projectFolderName + "/Deploy_template_2")
 def enablecompensation = freeStyleJob(projectFolderName + "/Deploy_template_compensation")
@@ -320,7 +320,7 @@ createproject.with{
 	  rootPOM('hcmselenium/pom.xml')
       goals('-P selenium-projectname-regression-test clean test')
       mavenInstallation("ADOP Maven")
-    }
+	}
   }
 }
 template1.with{
