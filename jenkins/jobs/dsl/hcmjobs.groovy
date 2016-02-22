@@ -238,7 +238,7 @@ createissue.with{
     stringParam("JIRA_URL","http://localhost:8081/jira")
 	stringParam("ISSUE_ASSIGNEE","john.smith")
 	stringParam("ISSUE_REPORTER","john.smith")
-	stringParam("ISSUE_DATE","$DATE")
+	stringParam("ISSUE_DATE","2016-22-02")
   }
   wrappers {
     preBuildCleanup()
