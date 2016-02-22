@@ -11,12 +11,12 @@ def Pre_defined_defined_2 = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + Pred
 def Pre_defined_defined_3 = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/" + Predefined_Configurations_3
 
 // Jobs
-def build = freeStyleJob(projectFolderName + "/1_Build")
-def buildvalidation = freeStyleJob(projectFolderName + "/2_BuildValidation")
+def build = mavenJob(projectFolderName + "/1_Build")
+def buildvalidation = mavenJob(projectFolderName + "/2_BuildValidation")
 def deploy = freeStyleJob(projectFolderName + "/3_Deploy")
 def validate = freeStyleJob(projectFolderName + "/4_Validate")
 def createissue = freeStyleJob(projectFolderName + "/CreateIssue")
-def createproject = freeStyleJob(projectFolderName + "/CreateProject")
+def createproject = mavenJob(projectFolderName + "/CreateProject")
 def template1 = freeStyleJob(projectFolderName + "/Deploy_template_1")
 def template2 = freeStyleJob(projectFolderName + "/Deploy_template_2")
 def enablecompensation = freeStyleJob(projectFolderName + "/Deploy_template_compensation")
