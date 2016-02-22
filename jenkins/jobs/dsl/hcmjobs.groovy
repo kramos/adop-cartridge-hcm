@@ -235,7 +235,7 @@ createissue.with{
   parameters{
     stringParam("JIRA_USERNAME","john.smith")
     stringParam("JIRA_PASSWORD","Password01")
-    stringParam("JIRA_URL","${JIRA_BASE_URL}")
+    stringParam("JIRA_URL","http://localhost:8081/jira")
 	stringParam("ISSUE_ASSIGNEE","john.smith")
 	stringParam("ISSUE_REPORTER","john.smith")
 	stringParam("ISSUE_DATE","$DATE")
