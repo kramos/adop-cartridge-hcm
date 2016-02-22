@@ -36,7 +36,6 @@ pipelineView.with{
 
 build.with{
   description("This job builds Java Web Application Controller")
-  }
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -83,12 +82,10 @@ build.with{
         }
       }
     }
-  }
 }
 
 buildvalidation.with{
   description("This job builds Java Web Application Controller for validation")
-  }
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -136,7 +133,7 @@ buildvalidation.with{
       }
     }
   }
-}
+
 
 deploy.with{
   description("This job deploy changes to Oracle HCM Application.")
@@ -253,6 +250,7 @@ createissue.with{
   }
   steps {
     shell(''' cd $JENKINS_HOME/jobs/CreateIssue
+	
 	#!/bin/bash
 
 	LOG_PATH=$JENKINS_HOME/jobs/3_Deploy/builds/lastFailedBuild
