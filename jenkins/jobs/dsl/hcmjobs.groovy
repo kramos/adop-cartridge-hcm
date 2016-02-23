@@ -149,7 +149,7 @@ createIssue.with{
   parameters{
     stringParam("JIRA_USERNAME","john.smith")
     stringParam("JIRA_PASSWORD","Password01")
-	stringParam("JIRA_URL", ${JIRA_URL})
+	stringParam("JIRA_BASE", ${JIRA_URL})
 	stringParam("ISSUE_ASSIGNEE","john.smith")
 	stringParam("ISSUE_REPORTER","john.smith")
 	stringParam("ISSUE_DATE","2016-22-02")
