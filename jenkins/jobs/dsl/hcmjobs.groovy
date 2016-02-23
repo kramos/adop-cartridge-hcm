@@ -145,7 +145,7 @@ validate.with{
     sshAgent("adop-jenkins-master")
   }
   steps {
-	shell ('''
+	shell ('''#!/bin/bash
 			echo "VALIDATING DATA"
 			echo "==========================================================================="
 			cat /var/jenkins_home/jobs/Deploy/builds/lastSuccessfulBuild/log
@@ -174,7 +174,7 @@ createIssue.with{
       env('PROJECT_NAME',projectFolderName)
   }
   steps {
-    shell('''
+    shell('''#!/bin/bash
 		wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/core/createIssue.sh
 		chmod u+x createIssue.sh
 		./createIssue.sh
@@ -224,9 +224,18 @@ template1.with{
         (project / 'auth_token').setValue('deploy_template_1')
   }
   steps {
-	shell ('''
-			cd ../../Build/workspace
-			rm -f SampleTestData.xlsx
+	shell ('''#!/bin/bash
+			cd ../../Build
+            if [ -d workspace ]
+            then
+                if [ -f workspace/SampleTestData.xlsx ]
+			    then
+			       rm -f workspace/SampleTestData.xlsx
+			    fi
+            else
+                mkdir workspace
+            fi
+			cd workspace
 			wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/pre-defined_template_1/SampleTestData.xlsx   
 			''')
   
@@ -254,9 +263,18 @@ template2.with{
         (project / 'auth_token').setValue('deploy_template_2')
     }
   steps {
-	shell ('''
-			cd ../../Build/workspace
-			rm -f SampleTestData.xlsx
+	shell ('''#!/bin/bash
+			cd ../../Build
+            if [ -d workspace ]
+            then
+                if [ -f workspace/SampleTestData.xlsx ]
+			    then
+			       rm -f workspace/SampleTestData.xlsx
+			    fi
+            else
+                mkdir workspace
+            fi
+			cd workspace
 			wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/pre-defined_template_2/SampleTestData.xlsx
 			''')
   }
