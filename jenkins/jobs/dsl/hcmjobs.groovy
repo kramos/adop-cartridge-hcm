@@ -175,9 +175,14 @@ createIssue.with{
   }
   steps {
     shell('''#!/bin/bash
+		if [ -f createIssue.sh]
+        then
+        rm -f createIssue.sh
+        fi
 		wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/core/createIssue.sh
 		chmod u+x createIssue.sh
 		./createIssue.sh
+	
 	''')
   }
 }
