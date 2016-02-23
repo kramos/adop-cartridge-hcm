@@ -163,7 +163,7 @@ createIssue.with{
     stringParam("JIRA_PASSWORD","Password01")
 	stringParam("ISSUE_ASSIGNEE","john.smith")
 	stringParam("ISSUE_REPORTER","john.smith")
-	stringParam("ISSUE_DATE","2016-22-02")
+	stringParam("ISSUE_DATE","22/FEB/16")
   }
   wrappers {
     preBuildCleanup()
