@@ -39,7 +39,7 @@ build.with{
   scm{
     git{
       remote{
-        url(HCM_Configuration)
+        url(hcmConfRepoUrl)
         credentials("adop-jenkins-master")
       }
       branch("*/master")
@@ -89,7 +89,7 @@ deploy.with{
     scm{
     git{
       remote{
-        url(HCM_Selenium)
+        url(hcmSelRepoUrl)
         credentials("adop-jenkins-master")
       }
       branch("*/master")
