@@ -73,8 +73,11 @@ build.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(projectFolderName + "/2_BuildValidation"){
+      trigger(projectFolderName + "/Deploy"){
         condition("SUCCESS")
+		  parameters{
+          predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
+					}
         }
       }
     }
@@ -123,6 +126,9 @@ deploy.with{
     downstreamParameterized{
       trigger(projectFolderName + "/Validate"){
         condition("SUCCESS")
+		parameters{
+          predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
+        }
       }
     }
   }
@@ -285,15 +291,14 @@ template3.with{
 			cd ../../Build
             if [ -d workspace ]
             then
-            cd workspace
-            if [ -f SampleTestData.xlsx ]
-			then
-			rm -f SampleTestData.xlsx
-			fi
+                if [ -f workspace/SampleTestData.xlsx ]
+			    then
+			       rm -f workspace/SampleTestData.xlsx
+			    fi
             else
-            mkdir workspace
-            cd workspace
+                mkdir workspace
             fi
+			cd workspace
             wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/enable_compensation_management/SampleTestData.xlsx
 			''')
   }
