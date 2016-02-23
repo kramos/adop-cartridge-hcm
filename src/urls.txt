@@ -1,5 +1,3 @@
 https://github.com/paoloxide/HCM_Configurations.git
-https://github.com/paoloxide/OracleHCM_Java.git
-https://github.com/paoloxide/OracleHCM_Validation.git
-https://github.com/paoloxide/Predefined_configuration_2
-https://github.com/paoloxide/Predefined_configuration_3
+https://github.com/paoloxide/HCM_Selenium.git
+https://github.com/paoloxide/HCM_CreateProject.git
