@@ -149,7 +149,7 @@ createIssue.with{
   parameters{
     stringParam("JIRA_USERNAME","john.smith")
     stringParam("JIRA_PASSWORD","Password01")
-    stringParam("JIRA_URL","http://localhost:8082/jira")
+	stringParam("JIRA_URL" $JIRA_URL)
 	stringParam("ISSUE_ASSIGNEE","john.smith")
 	stringParam("ISSUE_REPORTER","john.smith")
 	stringParam("ISSUE_DATE","2016-22-02")
@@ -163,53 +163,11 @@ createIssue.with{
       env('PROJECT_NAME',projectFolderName)
   }
   steps {
-    shell(''' cd $JENKINS_HOME/jobs/CreateIssue
-	
-	#!/bin/bash
-
-	LOG_PATH=$JENKINS_HOME/jobs/Deploy/builds/lastUnsuccessfulBuild
-ISSUE="{\n
-  \t\"fields\": {\n
-    \t\t\"project\": {\n
-     \t\t\t\"key\": \"HCM\"\n
-        \t\t},\n
-        \t\t\"issuetype\": {\n
-               \t\t\t \"id\":\"10000\"\n
-        \t\t},\n
-        \t\t\"assignee\": {\n
-                \t\t\t\"name\":\"$ISSUE_ASSIGNEE\"\n
-        \t\t},\n
-        \t\t\"reporter\": {\n
-                \t\t\t\"name\":\"$ISSUE_REPORTER\"\n
-        \t\t},\n
-        \t\t\"duedate\":\"$ISSUE_DATE\",\n
-        \t\t\"summary\""
-		
-
-ISSUE_PATH=$JENKINS_HOME/jobs/CreateIssue/issue.json
-
-rm -f $ISSUE_PATH
-touch $ISSUE_PATH
-
-echo $ISSUE >> $ISSUE_PATH
-
-if grep -i 'AssertionError' $LOG_PATH/log
-then
-        echo ":\"ERROR INVALID INPUT\",\n\t\t\"description\":\"Unable to locate element. Please check your excel configuration file for invalid values.\"\n\t}\n}" >> $ISSUE_PATH
-fi
-
-echo "============================================================================="
-echo "LOGGING ISSUE"
-echo "============================================================================="
-cat $ISSUE_PATH
-
-curl -u $JIRA_USERNAME:$JIRA_PASSWORD -o result.xml -X POST -H "Content-Type: application/json" -H "Accept: application/json" --data-binary @$JENKINS_HOME/jobs/CreateIssue/issue.json $JIRA_URL/rest/api/2/issue -v -s
-
-echo "============================================================================="
-echo "ISSUE GENERATED: SEE DETAILS BELOW"
-echo "============================================================================="
-cat result.xml 
-''')
+    shell('''
+		wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/core/createIssue.sh
+		chmod u+x createIssue.sh
+		./createIssue.sh
+	''')
   }
 }
 
@@ -311,7 +269,7 @@ template3.with{
       env('PROJECT_NAME',projectFolderName)
   }
   configure { project ->
-        (project / 'auth_token').setValue('deploy_template_2')
+        (project / 'auth_token').setValue('deploy_template_compensation')
     }
   steps {
 	shell ('''
