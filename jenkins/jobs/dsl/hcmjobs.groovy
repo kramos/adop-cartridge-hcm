@@ -15,7 +15,7 @@ def createIssue = freeStyleJob(projectFolderName + "/CreateIssue")
 def createProject = freeStyleJob(projectFolderName + "/CreateProject")
 def template1 = freeStyleJob(projectFolderName + "/DeployTemplate_1")
 def template2 = freeStyleJob(projectFolderName + "/DeployTemplate_2")
-def template3 = freeStyleJob(projectFolderName + "/DeployTemplate_Compensation")
+def template3 = freeStyleJob(projectFolderName + "/Enable_Compensation_Management")
 
 
 // Views
@@ -58,7 +58,7 @@ build.with{
         gerritxml / 'gerritProjects' {
           'com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject' {
             compareType("PLAIN")
-            pattern(projectFolderName + "/" + referenceAppgitRepo)
+            pattern(projectFolderName + "/HCM")
             'branches' {
               'com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch' {
                 compareType("PLAIN")
