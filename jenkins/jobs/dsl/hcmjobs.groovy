@@ -24,7 +24,7 @@ def pipelineView = buildPipelineView(projectFolderName + "/HCM_Automation")
 pipelineView.with{
     title('HCM_Automation_Pipeline')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/1_Build")
+    selectedJob(projectFolderName + "/Build")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
