@@ -3,23 +3,19 @@ def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 
 // Variables
-def HCM_Configuration = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Configurations"
-def HCM_Selenium = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Selenium"
-def Oracle_WAC = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/OracleHCM_Java"
-def Create_Project = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/OracleHCM_CreateProject"
-def OracleHCM_Validation = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/OracleHCM_Validation"
-def Pre_defined_defined_2 = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/Predefined_Configuration_2"
-def Pre_defined_defined_3 = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/Predefined_Configurations_3"
+def hcmConfRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Configurations"
+def hcmSelRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Selenium"
+def hcmProjRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CreateProject"
 
 // Jobs
-def build = mavenJob(projectFolderName + "/Build")
+def build = freeStyleJob(projectFolderName + "/Build")
 def deploy = freeStyleJob(projectFolderName + "/Deploy")
 def validate = freeStyleJob(projectFolderName + "/Validate")
-def createissue = freeStyleJob(projectFolderName + "/CreateIssue")
-def createproject = freeStyleJob(projectFolderName + "/CreateProject")
+def createIssue = freeStyleJob(projectFolderName + "/CreateIssue")
+def createProject = freeStyleJob(projectFolderName + "/CreateProject")
 def template1 = freeStyleJob(projectFolderName + "/DeployTemplate_1")
 def template2 = freeStyleJob(projectFolderName + "/DeployTemplate_2")
-def enablecompensation = freeStyleJob(projectFolderName + "/DeployTemplate_Compensation")
+def template3 = freeStyleJob(projectFolderName + "/DeployTemplate_Compensation")
 
 
 // Views
@@ -35,7 +31,7 @@ pipelineView.with{
 }
 
 build.with{
-  description("This job builds Java Web Application Controller")
+  description("This job retrieves the configurations from a remote repository.")
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -85,7 +81,7 @@ build.with{
 }
 
 deploy.with{
-  description("This job deploy changes to Oracle HCM Application.")
+  description("This job deploys configuration changes to Oracle HCM Application.")
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -127,7 +123,7 @@ deploy.with{
 }
 
 validate.with{
-  description("This job check if applied changes where successfull")
+  description("This job validates the deployed changes in the application.")
   environmentVariables {
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
@@ -148,8 +144,8 @@ validate.with{
   } 
 }
 
-createissue.with{
-  description("This job create an issue when deploy failed")
+createIssue.with{
+  description("This job creates an issue in JIRA whenever the deploy job is unsuccessful")
   parameters{
     stringParam("JIRA_USERNAME","john.smith")
     stringParam("JIRA_PASSWORD","Password01")
@@ -217,12 +213,12 @@ cat result.xml
   }
 }
 
-createproject.with{
-  description("This job automatically create new project in Oracle HCM Application")
+createProject.with{
+  description("This job creates a new project in the Oracle HCM Application")
   scm{
     git{
       remote{
-        url(Create_Project)
+        url(hcmProjRepoUrl)
         credentials("adop-jenkins-master")
       }
       branch("*/master")
@@ -246,7 +242,7 @@ createproject.with{
 }
 
 template1.with{
-  description("This job deploy changes to Oracle HCM Application.")
+  description("This job deploys a set of changes from a template to the Oracle HCM Application.")
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -276,7 +272,7 @@ template1.with{
 }
 
 template2.with{
-  description("This job deploy changes to Oracle HCM Application.")
+  description("This job deploys a set of changes from a template to the Oracle HCM Application.")
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -293,6 +289,35 @@ template2.with{
 			cd ../../Build/workspace
 			rm -f SampleTestData.xlsx
 			wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/pre-defined_template_2/SampleTestData.xlsx
+			''')
+  }
+  publishers{
+    downstreamParameterized{
+      trigger(projectFolderName + "/Deploy"){
+        condition("SUCCESS")
+      }
+    }
+  }
+}
+
+template3.with{
+  description("This job enables the Compensation Management feature in the Oracle HCM Application.")
+  wrappers {
+    preBuildCleanup()
+    sshAgent("adop-jenkins-master")
+  }
+  environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+  }
+  configure { project ->
+        (project / 'auth_token').setValue('deploy_template_2')
+    }
+  steps {
+	shell ('''
+			cd ../../Build/workspace
+			rm -f SampleTestData.xlsx
+			wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/enable_compensation_management/SampleTestData.xlsx
 			''')
   }
   publishers{
