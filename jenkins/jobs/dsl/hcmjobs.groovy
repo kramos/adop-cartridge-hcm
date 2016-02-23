@@ -244,6 +244,10 @@ template1.with{
     downstreamParameterized{
       trigger(projectFolderName + "/Deploy"){
         condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
       }
     }
   }
