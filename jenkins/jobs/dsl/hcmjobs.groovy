@@ -82,6 +82,9 @@ build.with{
 
 deploy.with{
   description("This job deploys configuration changes to Oracle HCM Application.")
+   parameters{
+    stringParam("PARENT_BUILD","","Parent build name")
+  }
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -110,6 +113,9 @@ deploy.with{
     downstreamParameterized{
       trigger(projectFolderName + "/CreateIssue"){
         condition("UNSTABLE_OR_WORSE")
+		 parameters{
+          predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
+        }
       }
     }
   }
@@ -252,6 +258,10 @@ template2.with{
     downstreamParameterized{
       trigger(projectFolderName + "/Deploy"){
         condition("SUCCESS")
+		parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
       }
     }
   }
@@ -259,6 +269,8 @@ template2.with{
 
 template3.with{
   description("This job enables the Compensation Management feature in the Oracle HCM Application.")
+  parameters{
+  }
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -271,7 +283,11 @@ template3.with{
         (project / 'auth_token').setValue('deploy_template_compensation')
     }
   steps {
-	shell ('''
+	shell ('''#!/bin/bash
+			if [ -f SampleTestData.xlsx ]
+			then
+			rm -f SampleTestData.xlsx
+			fi
 			cd ../../Build/workspace
 			rm -f SampleTestData.xlsx
 			wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/enable_compensation_management/SampleTestData.xlsx
@@ -281,6 +297,9 @@ template3.with{
     downstreamParameterized{
       trigger(projectFolderName + "/Deploy"){
         condition("SUCCESS")
+		parameters{
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
       }
     }
   }
