@@ -269,8 +269,6 @@ template2.with{
 
 template3.with{
   description("This job enables the Compensation Management feature in the Oracle HCM Application.")
-  parameters{
-  }
   wrappers {
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
@@ -284,13 +282,19 @@ template3.with{
     }
   steps {
 	shell ('''#!/bin/bash
-			if [ -f SampleTestData.xlsx ]
+			cd ../../Build
+            if [ -d workspace ]
+            then
+            cd workspace
+            if [ -f SampleTestData.xlsx ]
 			then
 			rm -f SampleTestData.xlsx
 			fi
-			cd ../../Build/workspace
-			rm -f SampleTestData.xlsx
-			wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/enable_compensation_management/SampleTestData.xlsx
+            else
+            mkdir workspace
+            cd workspace
+            fi
+            wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/enable_compensation_management/SampleTestData.xlsx
 			''')
   }
   publishers{
