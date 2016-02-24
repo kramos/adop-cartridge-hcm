@@ -13,8 +13,8 @@ def deploy = freeStyleJob(projectFolderName + "/Deploy")
 def validate = freeStyleJob(projectFolderName + "/Validate")
 def createIssue = freeStyleJob(projectFolderName + "/CreateIssue")
 def createProject = freeStyleJob(projectFolderName + "/CreateProject")
-def template1 = freeStyleJob(projectFolderName + "/DeployTemplate_1")
-def template2 = freeStyleJob(projectFolderName + "/DeployTemplate_2")
+def template1 = freeStyleJob(projectFolderName + "/Enable_Customer_Data_Management")
+def template2 = freeStyleJob(projectFolderName + "/Enable_Enterprise_Contracts")
 def template3 = freeStyleJob(projectFolderName + "/Enable_Compensation_Management")
 
 
