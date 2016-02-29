@@ -6,25 +6,69 @@ def projectFolderName = "${PROJECT_NAME}"
 def hcmConfRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Configurations"
 def hcmSelRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Selenium"
 def hcmProjRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CreateProject"
+def defProjFeature = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_DefaultFeatures"
 
 // Jobs
 def build = freeStyleJob(projectFolderName + "/Build")
 def deploy = freeStyleJob(projectFolderName + "/Deploy")
 def validate = freeStyleJob(projectFolderName + "/Validate")
 def createIssue = freeStyleJob(projectFolderName + "/CreateIssue")
-def createProject = freeStyleJob(projectFolderName + "/CreateProject")
+def createProject = freeStyleJob(projectFolderName + "/Default_Project_Feature")
 def template1 = freeStyleJob(projectFolderName + "/Enable_Customer_Data_Management")
 def template2 = freeStyleJob(projectFolderName + "/Enable_Enterprise_Contracts")
 def template3 = freeStyleJob(projectFolderName + "/Enable_Compensation_Management")
+def enableDefaultFeature = freeStyleJob(projectFolderName + "/Enable_Default_Feature")
+def deployDefaultFeature = freeStyleJob(projectFolderName + "/Deploy_Default_Feature")
+def defaultTemplateCreate = freeStyleJob(projectFolderName + "/Default_Template_Create")
 
 
 // Views
 def pipelineView = buildPipelineView(projectFolderName + "/HCM_Automation")
+def pipelineView_2 = buildPipelineView(projectFolderName + "/Enable_Compensation_Management")
+def pipelineView_3 = buildPipelineView(projectFolderName + "/Enable_Customer_Data_Management")
+def pipelineView_4 = buildPipelineView(projectFolderName + "/Enable_Enterprise_Contracts")
+def pipelineView_5 = buildPipelineView(projectFolderName + "/Default_Project_Feature")
 
 pipelineView.with{
     title('HCM_Automation_Pipeline')
     displayedBuilds(5)
     selectedJob(projectFolderName + "/Build")
+    showPipelineParameters()
+    showPipelineDefinitionHeader()
+    refreshFrequency(5)
+}
+
+pipelineView_2.with{
+    title('Enable_Compensation_Management')
+    displayedBuilds(5)
+    selectedJob(projectFolderName + "/Enable_Compensation_Management")
+    showPipelineParameters()
+    showPipelineDefinitionHeader()
+    refreshFrequency(5)
+}
+
+pipelineView_3.with{
+    title('Enable_Customer_Data_Management')
+    displayedBuilds(5)
+    selectedJob(projectFolderName + "/Enable_Customer_Data_Management")
+    showPipelineParameters()
+    showPipelineDefinitionHeader()
+    refreshFrequency(5)
+}
+
+pipelineView_4.with{
+    title('Enable_Enterprise_Contracts')
+    displayedBuilds(5)
+    selectedJob(projectFolderName + "/Enable_Enterprise_Contracts")
+    showPipelineParameters()
+    showPipelineDefinitionHeader()
+    refreshFrequency(5)
+}
+
+pipelineView_5.with{
+    title('Default_Project_Feature')
+    displayedBuilds(5)
+    selectedJob(projectFolderName + "/Enable_Default_Feature")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
@@ -83,6 +127,101 @@ build.with{
     }
 }
 
+enableDefaultFeature.with{
+	description("This downloads and enables the default features for a project.")
+	parameters{
+		stringParam("PARENT_BUILD","","Parent build name")
+	}
+	wrappers {
+		preBuildCleanup()
+		sshAgent("adop-jenkins-master")
+	}
+	steps {
+		shell ('''#!/bin/bash
+			      wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/enabledefaultfeature/SampleTestData.xlsx 
+			''')
+	}
+	publishers{
+		downstreamParameterized{
+		  trigger(projectFolderName + "/Deploy_Default_Feature"){
+			condition("SUCCESS")
+			 parameters{
+			  predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
+			}
+		  }
+		}
+	}
+}
+
+deployDefaultFeature.with{
+	description("This downloads and enables the default features for a project.")
+	parameters{
+		stringParam("PARENT_BUILD","","Parent build name")
+	}
+	wrappers {
+		preBuildCleanup()
+		sshAgent("adop-jenkins-master")
+	}
+	
+	scm{
+		git{
+		  remote{
+			url(defProjFeature)
+			credentials("adop-jenkins-master")
+		  }
+		  branch("*/master")
+		}
+	}
+	environmentVariables {
+		  env('WORKSPACE_NAME',workspaceFolderName)
+		  env('PROJECT_NAME',projectFolderName)
+	}
+	steps {
+		maven{
+		  rootPOM('pom.xml')
+		  goals('-P selenium-projectname-regression-test clean test')
+		  mavenInstallation("ADOP Maven")
+		}
+	}
+	
+   publishers{
+    downstreamParameterized{
+      trigger(projectFolderName + "/Default_Template_Create"){
+        condition("SUCCESS")
+		parameters{
+          predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
+        }
+      }
+    }
+  }
+}
+
+defaultTemplateCreate.with{
+	description("This downloads and enables the default features for a project.")
+	parameters{
+		stringParam("PARENT_BUILD","","Parent build name")
+	}
+	wrappers {
+		preBuildCleanup()
+		sshAgent("adop-jenkins-master")
+	}
+	steps {
+		shell ('''#!/bin/bash
+			      wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/SampleTestData.xlsx 
+			''')
+	}
+	publishers{
+		downstreamParameterized{
+		  trigger(projectFolderName + "/Default_Project_Feature"){
+			condition("SUCCESS")
+			 parameters{
+			  predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
+			}
+		  }
+		}
+	}
+}
+
 deploy.with{
   description("This job deploys configuration changes to Oracle HCM Application.")
    parameters{
@@ -92,7 +231,7 @@ deploy.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
-    scm{
+  scm{
     git{
       remote{
         url(hcmSelRepoUrl)

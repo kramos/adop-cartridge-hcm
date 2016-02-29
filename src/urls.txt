@@ -1,3 +1,4 @@
 https://github.com/paoloxide/HCM_Configurations.git
 https://github.com/paoloxide/HCM_Selenium.git
 https://github.com/paoloxide/HCM_CreateProject.git
+https://github.com/paoloxide/HCM_DefaultFeatures.git
