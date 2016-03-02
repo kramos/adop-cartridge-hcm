@@ -129,9 +129,6 @@ build.with{
 
 enableDefaultFeature.with{
 	description("This downloads and enables the default features for a project.")
-	parameters{
-		stringParam("PARENT_BUILD","","Parent build name")
-	}
 	wrappers {
 		preBuildCleanup()
 		sshAgent("adop-jenkins-master")
