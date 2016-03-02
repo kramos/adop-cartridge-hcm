@@ -14,8 +14,8 @@ def deploy = freeStyleJob(projectFolderName + "/Deploy")
 def validate = freeStyleJob(projectFolderName + "/Validate")
 def createIssue = freeStyleJob(projectFolderName + "/CreateIssue")
 def createProject = freeStyleJob(projectFolderName + "/Default_Project_Feature")
-def template1 = freeStyleJob(projectFolderName + "/Enable_Customer_Data_Management")
-def template2 = freeStyleJob(projectFolderName + "/Enable_Enterprise_Contracts")
+def template1 = freeStyleJob(projectFolderName + "/Enable_Workforce_Development")
+def template2 = freeStyleJob(projectFolderName + "/Enable_Workforce_Deployment")
 def template3 = freeStyleJob(projectFolderName + "/Enable_Compensation_Management")
 def enableDefaultFeature = freeStyleJob(projectFolderName + "/Enable_Default_Feature")
 def deployDefaultFeature = freeStyleJob(projectFolderName + "/Deploy_Default_Feature")
@@ -25,8 +25,8 @@ def defaultTemplateCreate = freeStyleJob(projectFolderName + "/Default_Template_
 // Views
 def pipelineView = buildPipelineView(projectFolderName + "/HCM_Automation")
 def pipelineView_2 = buildPipelineView(projectFolderName + "/Enable_Compensation_Management")
-def pipelineView_3 = buildPipelineView(projectFolderName + "/Enable_Customer_Data_Management")
-def pipelineView_4 = buildPipelineView(projectFolderName + "/Enable_Enterprise_Contracts")
+def pipelineView_3 = buildPipelineView(projectFolderName + "/Enable_Workforce_Development")
+def pipelineView_4 = buildPipelineView(projectFolderName + "/Enable_Workforce_Deployment")
 def pipelineView_5 = buildPipelineView(projectFolderName + "/Default_Project_Feature")
 
 pipelineView.with{
@@ -48,18 +48,18 @@ pipelineView_2.with{
 }
 
 pipelineView_3.with{
-    title('Enable_Customer_Data_Management')
+    title('Enable_Workforce_Development')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/Enable_Customer_Data_Management")
+    selectedJob(projectFolderName + "/Enable_Workforce_Development")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
 }
 
 pipelineView_4.with{
-    title('Enable_Enterprise_Contracts')
+    title('Enable_Workforce_Deployment')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/Enable_Enterprise_Contracts")
+    selectedJob(projectFolderName + "/Enable_Workforce_Deployment")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
