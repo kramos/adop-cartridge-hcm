@@ -6,12 +6,14 @@ def templateEnableFeature = projectFolderName + "Available Features"
 // Repositories
 def hcmConfRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Configurations"
 def hcmSelRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Selenium"
+def excelCheckerRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_ExcelChecker"
 
 // Jobs
 def build = freeStyleJob(projectFolderName + "/Build")
 def deploy = freeStyleJob(projectFolderName + "/Deploy")
 def createIssue = freeStyleJob(projectFolderName + "/CreateIssue")
 def validate = freeStyleJob(projectFolderName + "/Validate")
+def excelChecker = freeStyleJob(projectFolderName + "/ExcelChecker")
 
 // Pipeline
 def pipelineView = buildPipelineView(projectFolderName + "/HCM_Automation")
@@ -70,7 +72,7 @@ build.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(projectFolderName + "/Deploy"){
+      trigger(projectFolderName + "/ExcelChecker"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
@@ -183,4 +185,43 @@ validate.with{
 			echo "==========================================================================="
 			''')
   } 
+}
+
+excelChecker.with{
+  description("This job validates the excel configuration file values.")
+  wrappers {
+    preBuildCleanup()
+    sshAgent("adop-jenkins-master")
+  }
+  scm{
+    git{
+      remote{
+        url(excelCheckerRepo)
+        credentials("adop-jenkins-master")
+      }
+      branch("*/master")
+    }
+  }
+  environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+  }
+  steps {
+	maven{
+	  rootPOM('pom.xml')
+      goals('-P selenium-projectname-regression-test clean test')
+      mavenInstallation("ADOP Maven")
+	}
+  }
+  publishers{
+    downstreamParameterized{
+      trigger(projectFolderName + "/Deploy"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }
 }
