@@ -3,16 +3,16 @@ def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 
 // Job
-def enableWorkforceDep = freeStyleJob(projectFolderName + "/Features to Enable" + "/Enable_Workforce_Deployment")
+def enableWorkforceDep = freeStyleJob(projectFolderName + "/Features_to_Enable" + "/Enable_Workforce_Deployment")
 
 // Pipeline
-def enableWorkforceDepPipe = buildPipelineView(projectFolderName + "/Features to Enable" + "/Enable_Workforce_Deployment")
+def enableWorkforceDepPipe = buildPipelineView(projectFolderName + "/Features_to_Enable" + "/Enable_Workforce_Deployment")
 
 // Configurations
 enableWorkforceDepPipe.with{
     title('Enable_Workforce_Deployment')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/Features to Enable" + "/Enable_Workforce_Deployment")
+    selectedJob(projectFolderName + "/Features_to_Enable" + "/Enable_Workforce_Deployment")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
