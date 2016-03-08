@@ -8,13 +8,13 @@ def enableFolder = folder(enableFolderName) { displayName('Features to Enable') 
 def enableWorkforceDev = freeStyleJob(enableFolderName + "/Enable_Workforce_Development")
 
 // Pipeline
-def enableWorkforceDevPipe = buildPipelineView(projectFolderName + "/Enable_Workforce_Development")
+def enableWorkforceDevPipe = buildPipelineView(enableFolderName + "/Enable_Workforce_Development")
 
 // Views
 enableWorkforceDevPipe.with{
     title('Enable_Workforce_Development')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/Enable_Workforce_Development")
+    selectedJob(enableFolderName + "/Enable_Workforce_Development")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
