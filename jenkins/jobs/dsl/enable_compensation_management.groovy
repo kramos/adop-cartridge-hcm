@@ -8,13 +8,13 @@ def enableFolder = folder(enableFolderName) { displayName('Features to Enable') 
 def enableCompMan = freeStyleJob(enableFolderName + "/Enable_Compensation_Management")
 
 //Pipeline
-def enableCompManPipe = buildPipelineView(enableFolderName + "/Enable_Compensation_Management")
+def enableCompManPipe = buildPipelineView(projectFolderName + "/Enable_Compensation_Management")
 
 //Views
 enableCompManPipe.with{
     title('Enable_Compensation_Management')
     displayedBuilds(5)
-    selectedJob(enableFolderName + "/Enable_Compensation_Management")
+    selectedJob(projectFolderName + "/Enable_Compensation_Management")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)

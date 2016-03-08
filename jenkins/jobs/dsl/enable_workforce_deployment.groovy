@@ -8,13 +8,13 @@ def enableFolder = folder(enableFolderName) { displayName('Features to Enable') 
 def enableWorkforceDep = freeStyleJob(enableFolderName + "/Enable_Workforce_Deployment")
 
 // Pipeline
-def enableWorkforceDepPipe = buildPipelineView(enableFolderName + "/Enable_Workforce_Deployment")
+def enableWorkforceDepPipe = buildPipelineView(projectFolderName + "/Enable_Workforce_Deployment")
 
 // Views
 enableWorkforceDepPipe.with{
     title('Enable_Workforce_Deployment')
     displayedBuilds(5)
-    selectedJob(enableFolderName + "/Enable_Workforce_Deployment")
+    selectedJob(projectFolderName + "/Enable_Workforce_Deployment")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
@@ -33,7 +33,7 @@ enableWorkforceDep.with{
 
   steps {
 	shell ('''#!/bin/bash
-			cd ../../Build
+			cd ../../../../Build
             if [ -d workspace ]
             then
                 if [ -f workspace/SampleTestData.xlsx ]
