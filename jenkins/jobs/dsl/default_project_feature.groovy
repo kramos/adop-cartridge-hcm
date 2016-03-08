@@ -1,7 +1,7 @@
 // Folders
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
-def dpf_FolderName = projectFolderName + "/Default_Project_Feature"
+def dpf_FolderName = projectFolderName + "/HCM_Project_with_Default_Features"
 
 // Variables
 def hcmProjRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CreateProject"
