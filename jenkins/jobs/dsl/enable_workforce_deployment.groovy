@@ -5,22 +5,22 @@ def enableFolderName = projectFolderName + "/Features_to_Enable";
 def enableFolder = folder(enableFolderName) { displayName('Features to Enable') }
 
 // Jobs
-def enableWorkforceDep = freeStyleJob(enableFolderName + "/Enable_Workforce_Deployment")
+def enableWorkforceDev = freeStyleJob(enableFolderName + "/Enable_Workforce_Deployment")
 
 // Pipeline
-def enableWorkforceDepPipe = buildPipelineView(projectFolderName + "/Enable_Workforce_Deployment")
+def enableWorkforceDevPipe = buildPipelineView(enableFolderName + "/Enable_Workforce_Deployment")
 
 // Views
-enableWorkforceDepPipe.with{
+enableWorkforceDevPipe.with{
     title('Enable_Workforce_Deployment')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/Enable_Workforce_Deployment")
+    selectedJob(enableFolderName + "/Enable_Workforce_Deployment")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
 }
 
-enableWorkforceDep.with{
+enableWorkforceDev.with{
   description("This job deploys a set of changes from a template to the Oracle HCM Application.")
   wrappers {
     preBuildCleanup()
@@ -44,14 +44,15 @@ enableWorkforceDep.with{
                 mkdir workspace
             fi
 			cd workspace
-			wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/pre-defined_template_2/SampleTestData.xlsx
+			wget https://s3-eu-west-1.amazonaws.com/oracle-hcm/template/pre-defined_template_2/SampleTestData.xlsx   
 			''')
+  
   }
   publishers{
     downstreamParameterized{
       trigger(projectFolderName + "/Deploy"){
         condition("SUCCESS")
-		parameters{
+		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
           predefinedProp("PARENT_BUILD", '${JOB_NAME}')
         }
