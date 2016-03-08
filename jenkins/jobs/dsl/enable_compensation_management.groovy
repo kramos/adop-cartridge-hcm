@@ -10,7 +10,7 @@ def enableCompMan = freeStyleJob(enableFolderName + "/Enable_Compensation_Manage
 //Pipeline
 def enableCompManPipe = buildPipelineView(enableFolderName + "/Enable_Compensation_Management")
 
-//Configurations
+//Views
 enableCompManPipe.with{
     title('Enable_Compensation_Management')
     displayedBuilds(5)

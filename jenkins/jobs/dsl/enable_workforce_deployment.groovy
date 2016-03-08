@@ -4,13 +4,13 @@ def projectFolderName = "${PROJECT_NAME}"
 def enableFolderName = projectFolderName + "/Features_to_Enable";
 def enableFolder = folder(enableFolderName) { displayName('Features to Enable') }
 
-// Job
+// Jobs
 def enableWorkforceDep = freeStyleJob(enableFolderName + "/Enable_Workforce_Deployment")
 
 // Pipeline
 def enableWorkforceDepPipe = buildPipelineView(enableFolderName + "/Enable_Workforce_Deployment")
 
-// Configurations
+// Views
 enableWorkforceDepPipe.with{
     title('Enable_Workforce_Deployment')
     displayedBuilds(5)

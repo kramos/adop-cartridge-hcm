@@ -12,7 +12,6 @@ def enableDefaultFeature = freeStyleJob(projectFolderName + "/Enable_Default_Fea
 def deployDefaultFeature = freeStyleJob(projectFolderName + "/Deploy_Default_Feature")
 def defaultTemplateCreate = freeStyleJob(projectFolderName + "/Default_Template_Create")
 
-
 // Views
 def pipelineView_5 = buildPipelineView(projectFolderName + "/Default_Project_Feature")
 
