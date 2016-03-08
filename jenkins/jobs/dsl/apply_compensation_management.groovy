@@ -1,12 +1,13 @@
 //Folders
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
+def aftp_FolderName = projectFolderName + "/Apply_Feature_to_Project"
 
 //Repositories
 def hcmApplyFeature = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_ApplyFeature"
 
 //Jobs
-def applyFeature = freeStyleJob(projectFolderName + "/Apply_Compensation_Management")
+def applyFeature = freeStyleJob(aftp_FolderName + "/Apply_Compensation_Management")
 
 //Configure Jobs
 applyFeature.with{
