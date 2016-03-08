@@ -1,16 +1,17 @@
 // Folders
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
+def dpf_FolderName = projectFolderName + "/Default_Project_Feature"
 
 // Variables
 def hcmProjRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CreateProject"
 def defProjFeature = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_DefaultFeatures"
 
 // Jobs
-def createProject = freeStyleJob(projectFolderName + "/Default_Project_Feature")
-def enableDefaultFeature = freeStyleJob(projectFolderName + "/Enable_Default_Feature")
-def deployDefaultFeature = freeStyleJob(projectFolderName + "/Deploy_Default_Feature")
-def defaultTemplateCreate = freeStyleJob(projectFolderName + "/Default_Template_Create")
+def createProject = freeStyleJob(dpf_FolderName + "/Default_Project_Feature")
+def enableDefaultFeature = freeStyleJob(dpf_FolderName + "/Enable_Default_Feature")
+def deployDefaultFeature = freeStyleJob(dpf_FolderName + "/Deploy_Default_Feature")
+def defaultTemplateCreate = freeStyleJob(dpf_FolderName + "/Default_Template_Create")
 
 // Views
 def pipelineView_5 = buildPipelineView(projectFolderName + "/Default_Project_Feature")
@@ -18,7 +19,7 @@ def pipelineView_5 = buildPipelineView(projectFolderName + "/Default_Project_Fea
 pipelineView_5.with{
     title('Default_Project_Feature')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/Enable_Default_Feature")
+    selectedJob(dpf_FolderName + "/Enable_Default_Feature")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
@@ -37,7 +38,7 @@ enableDefaultFeature.with{
 	}
 	publishers{
 		downstreamParameterized{
-		  trigger(projectFolderName + "/Deploy_Default_Feature"){
+		  trigger(dpf_FolderName + "/Deploy_Default_Feature"){
 			condition("SUCCESS")
 			 parameters{
 			  predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
@@ -80,7 +81,7 @@ deployDefaultFeature.with{
 	
    publishers{
     downstreamParameterized{
-      trigger(projectFolderName + "/Default_Template_Create"){
+      trigger(dpf_FolderName + "/Default_Template_Create"){
         condition("SUCCESS")
 		parameters{
           predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
@@ -106,7 +107,7 @@ defaultTemplateCreate.with{
 	}
 	publishers{
 		downstreamParameterized{
-		  trigger(projectFolderName + "/Default_Project_Feature"){
+		  trigger(dpf_FolderName + "/Default_Project_Feature"){
 			condition("SUCCESS")
 			 parameters{
 			  predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')

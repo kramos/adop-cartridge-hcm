@@ -1,7 +1,7 @@
 // Folders
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
-def templateEnableFeature = projectFolderName + "Available Features"
+def ha_FolderName = projectFolderName + "/HCM_Automation"
 
 // Repositories
 def hcmConfRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Configurations"
@@ -9,11 +9,11 @@ def hcmSelRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Selenium"
 def excelCheckerRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_ExcelChecker"
 
 // Jobs
-def build = freeStyleJob(projectFolderName + "/Build")
-def deploy = freeStyleJob(projectFolderName + "/Deploy")
-def createIssue = freeStyleJob(projectFolderName + "/CreateIssue")
-def validate = freeStyleJob(projectFolderName + "/Validate")
-def excelChecker = freeStyleJob(projectFolderName + "/ExcelChecker")
+def build = freeStyleJob(ha_FolderName + "/Build")
+def deploy = freeStyleJob(ha_FolderName + "/Deploy")
+def createIssue = freeStyleJob(ha_FolderName + "/CreateIssue")
+def validate = freeStyleJob(ha_FolderName + "/Validate")
+def excelChecker = freeStyleJob(ha_FolderName + "/ExcelChecker")
 
 // Pipeline
 def pipelineView = buildPipelineView(projectFolderName + "/HCM_Automation")
@@ -22,7 +22,7 @@ def pipelineView = buildPipelineView(projectFolderName + "/HCM_Automation")
 pipelineView.with{
     title('HCM_Automation_Pipeline')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/Build")
+    selectedJob(ha_FolderName + "/Build")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
@@ -72,7 +72,7 @@ build.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(projectFolderName + "/ExcelChecker"){
+      trigger(ha_FolderName + "/ExcelChecker"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
@@ -113,7 +113,7 @@ deploy.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(projectFolderName + "/CreateIssue"){
+      trigger(ha_FolderName + "/CreateIssue"){
         condition("UNSTABLE_OR_WORSE")
 		 parameters{
           predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
@@ -124,7 +124,7 @@ deploy.with{
   
    publishers{
     downstreamParameterized{
-      trigger(projectFolderName + "/Validate"){
+      trigger(ha_FolderName + "/Validate"){
         condition("SUCCESS")
 		parameters{
           predefinedProp("PARENT_BUILD",'${PARENT_BUILD}')
@@ -215,7 +215,7 @@ excelChecker.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(projectFolderName + "/Deploy"){
+      trigger(ha_FolderName + "/Deploy"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
