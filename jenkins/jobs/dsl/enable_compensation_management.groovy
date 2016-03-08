@@ -2,25 +2,24 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def enableFolderName = projectFolderName + "/Features_to_Enable";
-def enableFolder = folder(enableFolderName) { displayName('Features to Enable') }
 
 // Jobs
-def enableCompMan = freeStyleJob(enableFolderName + "/Enable_Compensation_Management")
+def enableFeature = freeStyleJob(enableFolderName + "/Enable_Compensation_Management")
 
 //Pipeline
-def enableCompManPipe = buildPipelineView(projectFolderName + "/Enable_Compensation_Management")
+def enableFeaturePipe = buildPipelineView(enableFolderName + "/Enable_Compensation_Management")
 
 //Views
-enableCompManPipe.with{
+enableFeaturePipe.with{
     title('Enable_Compensation_Management')
     displayedBuilds(5)
-    selectedJob(projectFolderName + "/Enable_Compensation_Management")
+    selectedJob(enableFolderName + "/Enable_Compensation_Management")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
 }
 
-enableCompMan.with{
+enableFeature.with{
   description("This job enables the Compensation Management feature in the Oracle HCM Application.")
   wrappers {
     preBuildCleanup()
@@ -30,9 +29,7 @@ enableCompMan.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
   }
-  configure { project ->
-        (project / 'auth_token').setValue('deploy_template_compensation')
-    }
+
   steps {
 	shell ('''#!/bin/bash
 			cd ../../Build

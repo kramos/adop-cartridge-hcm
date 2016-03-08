@@ -2,16 +2,15 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def enableFolderName = projectFolderName + "/Features_to_Enable";
-def enableFolder = folder(enableFolderName) { displayName('Features to Enable') }
 
 // Jobs
-def enableWorkforceDev = freeStyleJob(enableFolderName + "/Enable_Workforce_Development")
+def enableFeature = freeStyleJob(enableFolderName + "/Enable_Workforce_Development")
 
 // Pipeline
-def enableWorkforceDevPipe = buildPipelineView(enableFolderName + "/Enable_Workforce_Development")
+def enableFeaturePipe = buildPipelineView(enableFolderName + "/Enable_Workforce_Development")
 
 // Views
-enableWorkforceDevPipe.with{
+enableFeaturePipe.with{
     title('Enable_Workforce_Development')
     displayedBuilds(5)
     selectedJob(enableFolderName + "/Enable_Workforce_Development")
@@ -20,7 +19,7 @@ enableWorkforceDevPipe.with{
     refreshFrequency(5)
 }
 
-enableWorkforceDev.with{
+enableFeature.with{
   description("This job deploys a set of changes from a template to the Oracle HCM Application.")
   wrappers {
     preBuildCleanup()
