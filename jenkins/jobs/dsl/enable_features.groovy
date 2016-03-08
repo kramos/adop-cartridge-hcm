@@ -97,7 +97,7 @@ enableFeature2.with{
 
   steps {
 	shell ('''#!/bin/bash
-			cd ../../Build
+			cd ../../../../Build
             if [ -d workspace ]
             then
                 if [ -f workspace/SampleTestData.xlsx ]
