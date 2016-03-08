@@ -30,9 +30,7 @@ enableWorkforceDep.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
   }
-  configure { project ->
-        (project / 'auth_token').setValue('deploy_template_2')
-    }
+
   steps {
 	shell ('''#!/bin/bash
 			cd ../../Build

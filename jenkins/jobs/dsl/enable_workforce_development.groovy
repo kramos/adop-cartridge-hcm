@@ -20,7 +20,6 @@ enableWorkforceDevPipe.with{
     refreshFrequency(5)
 }
 
-// Job Configuration
 enableWorkforceDev.with{
   description("This job deploys a set of changes from a template to the Oracle HCM Application.")
   wrappers {
@@ -31,9 +30,7 @@ enableWorkforceDev.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
   }
-  configure { project ->
-        (project / 'auth_token').setValue('deploy_template_1')
-  }
+
   steps {
 	shell ('''#!/bin/bash
 			cd ../../Build
