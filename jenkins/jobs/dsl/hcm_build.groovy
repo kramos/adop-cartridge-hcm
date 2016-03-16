@@ -6,7 +6,7 @@ def projectFolderName = "${PROJECT_NAME}"
 def hcmConfRepoUrl = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Configurations"
 
 // Jobs
-def build = freeStyleJob(ha_FolderName + "/Build")
+def build = freeStyleJob(projectFolderName + "/Build")
 
 // Job Configuration
 build.with{
