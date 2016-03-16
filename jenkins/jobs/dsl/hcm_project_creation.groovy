@@ -23,7 +23,7 @@ projectCreatePipe.with{
 defaultConfig.with{
     description("This retrieves the configuration file that will be used as a template for managing department to the Oracle HCM Application")
     parameters{
-        stringParam("PROJECT_NAME","","HCM Project Name")
+        stringParam("HCM_PROJECT","","HCM Project Name")
     }
     wrappers {
     preBuildCleanup()
@@ -57,6 +57,7 @@ defaultConfig.with{
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
           predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+          predefinedProp("HCM_PROJECT", '${HCM_PROJECT}')
         }
       }
     }
@@ -66,7 +67,7 @@ defaultConfig.with{
 enableFeature.with{
     description("This enables the feature from a template.")
     parameters{
-        stringParam("PROJECT_NAME","","HCM Project Name")
+        stringParam("HCM_PROJECT","","HCM Project Name")
         stringParam("PARENT_BUILD","","")
     }
     wrappers {
@@ -100,6 +101,7 @@ enableFeature.with{
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
           predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+          predefinedProp("HCM_PROJECT", '${HCM_PROJECT}')
         }
       }
     }
@@ -109,7 +111,7 @@ enableFeature.with{
 projectCreate.with{
     description("This creates the project with the enabled features.")
     parameters{
-        stringParam("PROJECT_NAME","","HCM Project Name")
+        stringParam("HCM_PROJECT","","HCM Project Name")
         stringParam("PARENT_BUILD","","")
     }
     wrappers {
