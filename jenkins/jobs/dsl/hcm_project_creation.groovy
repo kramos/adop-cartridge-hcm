@@ -14,7 +14,7 @@ def projectCreatePipe = buildPipelineView(pc_FolderName + "/Create_Default_Proje
 projectCreatePipe.with{
     title('Create Default Project')
     displayedBuilds(5)
-    selectedJob(md_FolderName + "/Default_Configuration")
+    selectedJob(pc_FolderName + "/Default_Configuration")
     showPipelineParameters()
     showPipelineDefinitionHeader()
     refreshFrequency(5)
@@ -52,7 +52,7 @@ defaultConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(md_FolderName + "/Enable_Feature"){
+      trigger(pc_FolderName + "/Enable_Feature"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -95,7 +95,7 @@ enableFeature.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(md_FolderName + "/Project_Creation"){
+      trigger(pc_FolderName + "/Project_Creation"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
