@@ -45,6 +45,25 @@ retrieveConfig.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
   }
+    steps {
+        shell('''
+            #!/bin/bash
+
+            cd /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/Build
+             if [ -d workspace ]
+               then
+                if [ -f workspace/SampleTestData.xlsx ]
+                 then
+                   rm -f workspace/SampleTestData.xlsx
+                fi
+             else
+                 mkdir workspace
+             fi
+             cd workspace
+
+            cp /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/NewFeature/jobs/Retrieve_Config/workspace/SampleTestData.xlsx .
+        ''')
+    }
   publishers{
     downstreamParameterized{
       trigger(wd_FolderName + "/Enable_Feature"){
