@@ -19,13 +19,21 @@ def validate = freeStyleJob(wd_FolderName + "/Validate")
 def retrieveConfigGoal = freeStyleJob(mgs_FolderName + "/Retrieve_Configuration")
 
 def workforceDevPipeline = buildPipelineView(wd_FolderName + "/Enable_Workforce_Development")
+def goalSettingPipeline = buildPipelineView(mgs_FolderName + "/Manage_Goal_Setting")
 
 workforceDevPipeline.with{
-    title('Enable_Workforce_Development')
+    title('Enable Workforce Development')
     displayedBuilds(5)
     selectedJob(wd_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
-    showPipelineDefinitionHeader()
+    refreshFrequency(5)
+}
+
+goalSettingPipeline.with{
+    title('Manage Goal Setting')
+    displayedBuilds(5)
+    selectedJob(mgs_FolderName + "/Retrieve_Configuration")
+    showPipelineParameters()
     refreshFrequency(5)
 }
 
