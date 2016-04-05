@@ -150,7 +150,7 @@ employeeManagement.with{
 	publishers{
     downstreamParameterized{
       trigger(md_FolderName + "/Employee_Management"){
-        condition("Unstable")
+        condition("FAILED")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
           predefinedProp("PARENT_BUILD", '${JOB_NAME}')

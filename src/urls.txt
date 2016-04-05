@@ -7,3 +7,5 @@ https://github.com/paoloxide/HCM_MDApplication.git
 https://github.com/paoloxide/HCM_MDConfiguration.git
 https://github.com/paoloxide/HCM_CareerDevelopmentGoals.git
 https://github.com/paoloxide/HCM_WorkforceGoals.git
+https://github.com/paoloxide/HCM_MDPersonManagement.git
+
