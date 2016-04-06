@@ -221,9 +221,26 @@ retrieveConfig_2.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
   }
+    steps {
+	    shell ('''
+		#!/bin/bash
+		cd /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Manage_Department/jobs/Retrieve_Configuration
+		 if [ -d workspace ]
+          then
+           if [ -f workspace/DepartmentCreation.xlsx ]
+            then
+              rm -f workspace/DepartmentCreation.xlsx
+           fi
+         else
+          mkdir workspace
+         fi
+        cd workspace
+        cp /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Create_Department/jobs/Retrieve_Configuration/workspace/DepartmentCreation.xlsx .
+		''')
+	}
   publishers{
     downstreamParameterized{
-      trigger(md_FolderName + "/Create_Department"){
+      trigger(pm_FolderName + "/Create_Department"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -260,17 +277,6 @@ createDepartment_2.with{
           mavenInstallation("ADOP Maven")
         }
     }
-	publishers{
-    downstreamParameterized{
-      trigger(md_FolderName + "/Employee_Management"){
-        condition("SUCCESS")
-		  parameters{
-          predefinedProp("B",'${BUILD_NUMBER}')
-          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
-        }
-      }
-    }
-  }
 }
 
 retrieveConfig_3.with{
@@ -292,6 +298,23 @@ retrieveConfig_3.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
   }
+    steps {
+	    shell ('''
+		#!/bin/bash
+		cd /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Manage_Department/jobs/Retrieve_Configuration
+		 if [ -d workspace ]
+          then
+           if [ -f workspace/DepartmentCreation.xlsx ]
+            then
+              rm -f workspace/DepartmentCreation.xlsx
+           fi
+         else
+          mkdir workspace
+         fi
+        cd workspace
+        cp /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Person_Management/jobs/Retrieve_Configuration/workspace/DepartmentCreation.xlsx .
+		''')
+	}
   publishers{
     downstreamParameterized{
       trigger(md_FolderName + "/Employee_Management"){
