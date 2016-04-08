@@ -34,7 +34,7 @@ manageDepartment_pipeline.with{
 }
 
 createDepartment_pipeline.with {
- title('Manage_Department')
+ title('Create_Department')
     displayedBuilds(5)
     selectedJob(cd_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
@@ -42,7 +42,7 @@ createDepartment_pipeline.with {
 }
 
 personManagement_pipeline.with {
- title('Manage_Department')
+ title('Employee_Management')
     displayedBuilds(5)
     selectedJob(pm_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
@@ -240,7 +240,7 @@ retrieveConfig_2.with{
 	}
   publishers{
     downstreamParameterized{
-      trigger(pm_FolderName + "/Create_Department"){
+      trigger(cd_FolderName + "/Create_Department"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
