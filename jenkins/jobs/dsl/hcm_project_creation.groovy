@@ -3,7 +3,7 @@ def projectFolderName = "${PROJECT_NAME}"
 def pc_FolderName = projectFolderName + "/HCM_Project_Creation"
 
 def enableFeatureRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_EnableFeature"
-def projectCreateRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_ProjectCreation"
+def projectCreateRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CreateProject"
 
 def defaultConfig = freeStyleJob(pc_FolderName + "/Default_Configuration")
 def enableFeature = freeStyleJob(pc_FolderName + "/Enable_Feature")
@@ -133,7 +133,7 @@ projectCreate.with{
   }
   steps {
       maven{
-	    rootPOM('pom.xml')
+	    rootPOM('hcmselenium/pom.xml')
         goals('-P selenium-projectname-regression-test clean test')
         mavenInstallation("ADOP Maven")
       }
