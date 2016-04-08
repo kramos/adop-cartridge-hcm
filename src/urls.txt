@@ -2,7 +2,6 @@ https://github.com/paoloxide/HCM_CreateProject.git
 https://github.com/paoloxide/HCM_Configurations.git
 https://github.com/paoloxide/HCM_Selenium.git
 https://github.com/paoloxide/HCM_EnableFeature.git
-https://github.com/paoloxide/HCM_ProjectCreation.git
 https://github.com/paoloxide/HCM_MDApplication.git
 https://github.com/paoloxide/HCM_MDConfiguration.git
 https://github.com/paoloxide/HCM_CareerDevelopmentGoals.git
