@@ -149,7 +149,7 @@ employeeManagement.with{
     }
 	publishers{
     downstreamParameterized{
-      trigger(md_FolderName + "/Employee_Management"){
+      trigger(md_FolderName + "/Create_Issue"){
         condition("FAILED")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
