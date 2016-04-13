@@ -15,6 +15,7 @@ def hcmEnableFeatRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPEnable
 def hcmCreateProjAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPCreateProject"
 def hcmManageCurrenciesAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPManageCurrencies"
 def hcmImpProjConRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_FSMSetups"
+def hcmCreateUserAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CreateUser"
 
 // Jobs
 def retrieveConfig = freeStyleJob(md_FolderName + "/Retrieve_Configuration")
@@ -28,6 +29,7 @@ def retrieveConfig_4 = freeStyleJob(cp_FolderName + "/Retrieve_Configuration")
 def enablefeature = freeStyleJob(cp_FolderName + "/Enable_Feature")
 def createproject = freeStyleJob(cp_FolderName + "/Create_Project")
 def managecurrencies = freeStyleJob(cp_FolderName + "/Manage_Currencies")
+def createuser = freeStyleJob(cp_FolderName + "/Create_User")
 
 // Pipeline
 def manageDepartment_pipeline = buildPipelineView(md_FolderName + "/Manage_Department")
@@ -455,7 +457,50 @@ createproject.with{
     }
 	publishers{
     downstreamParameterized{
-      trigger(cp_FolderName + "/--next"){
+      trigger(cp_FolderName + "/Create_User"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }	
+}
+
+createuser.with{
+    description("This create an User Access in in Oracle HCM Application")
+	parameters{
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+		}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    scm{
+        git{
+            remote{
+                url(hcmCreateUserAppRepo)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+    steps {
+        maven{
+          rootPOM('pom.xml')
+          goals('-P selenium-projectname-regression-test clean test')
+          mavenInstallation("ADOP Maven")
+        }
+    }
+	publishers{
+    downstreamParameterized{
+      trigger(cp_FolderName + "/--NextJob"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
