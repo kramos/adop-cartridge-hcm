@@ -5,11 +5,16 @@ def hfm_FolderName = projectFolderName + "/HCM_Features_Manager"
 def md_FolderName = hfm_FolderName + "/Manage_Department"
 def cd_FolderName = hfm_FolderName + "/Create_Department"
 def pm_FolderName = hfm_FolderName + "/Person_Management"
+def cp_FolderName = hfm_FolderName + "/Create_Project"
 
 // Repositories
 def hcmManDepConRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDConfiguration"
 def hcmManDepAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDApplication"
 def hcmEmpManAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDPersonManagement"
+def hcmEnableFeatRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPEnableFeature"
+def hcmCreateProjAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPCreateProject"
+def hcmManageCurrenciesAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPManageCurrencies"
+def hcmImpProjConRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_FSMSetups"
 
 // Jobs
 def retrieveConfig = freeStyleJob(md_FolderName + "/Retrieve_Configuration")
@@ -19,11 +24,16 @@ def createIssue = freeStyleJob(md_FolderName + "/Create_Issue")
 def retrieveConfig_2 = freeStyleJob(cd_FolderName + "/Retrieve_Configuration")
 def createDepartment_2 = freeStyleJob(cd_FolderName + "/Create_Department")
 def retrieveConfig_3 = freeStyleJob(pm_FolderName + "/Retrieve_Configuration")
+def retrieveConfig_4 = freeStyleJob(cp_FolderName + "/Retrieve_Configuration")
+def enablefeature = freeStyleJob(cp_FolderName + "/Enable_Feature")
+def createproject = freeStyleJob(cp_FolderName + "/Create_Project")
+def managecurrencies = freeStyleJob(cp_FolderName + "/Manage_Currencies")
 
 // Pipeline
 def manageDepartment_pipeline = buildPipelineView(md_FolderName + "/Manage_Department")
 def createDepartment_pipeline = buildPipelineView(cd_FolderName + "/Create_Department")
 def personManagement_pipeline = buildPipelineView(pm_FolderName + "/Person_Management")
+def usecase1_pipeline = buildPipelineView(cp_FolderName + "/Use_Case1")
 
 manageDepartment_pipeline.with{
     title('Manage_Department')
@@ -45,6 +55,14 @@ personManagement_pipeline.with {
  title('Employee_Management')
     displayedBuilds(5)
     selectedJob(pm_FolderName + "/Retrieve_Configuration")
+    showPipelineParameters()
+    refreshFrequency(5)
+}
+
+usecase1_pipeline.with{
+    title('Use_Case1')
+    displayedBuilds(5)
+    selectedJob(cp_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
     refreshFrequency(5)
 }
@@ -327,5 +345,158 @@ retrieveConfig_3.with{
     }
   }
 }
+
+//Use Case 1
+
+retrieveConfig_4.with{
+    description("This retrieves the configuration file")
+    wrappers {
+    preBuildCleanup()
+    sshAgent("adop-jenkins-master")
+  }
+  scm{
+    git{
+      remote{
+        url(hcmImpProjConRepo)
+        credentials("adop-jenkins-master")
+      }
+      branch("*/master")
+    }
+  }
+  environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+  }
+  publishers{
+    downstreamParameterized{
+      trigger(cp_FolderName + "/Enable_Feature"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }
+}
+
+enablefeature.with{
+    description("This create a Departmant in Oracle HCM Application")
+	parameters{
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+		}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    scm{
+        git{
+            remote{
+                url(hcmEnableFeatRepo)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+    steps {
+        maven{
+          rootPOM('pom.xml')
+          goals('-P selenium-projectname-regression-test clean test')
+          mavenInstallation("ADOP Maven")
+        }
+    }
+	publishers{
+    downstreamParameterized{
+      trigger(cp_FolderName + "/Create_Project"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }	
+}
+
+createproject.with{
+    description("This create an Implementation project in in Oracle HCM Application")
+	parameters{
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+		}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    scm{
+        git{
+            remote{
+                url(hcmCreateProjAppRepo)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+    steps {
+        maven{
+          rootPOM('pom.xml')
+          goals('-P selenium-projectname-regression-test clean test')
+          mavenInstallation("ADOP Maven")
+        }
+    }
+	publishers{
+    downstreamParameterized{
+      trigger(cp_FolderName + "/--next"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }	
+}
+
+managecurrencies.with{
+    description("This job manage the Currencies in Oracle HCM Application")
+	parameters{
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+		}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    scm{
+        git{
+            remote{
+                url(hcmManageCurrenciesAppRepo)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+    steps {
+        maven{
+          rootPOM('pom.xml')
+          goals('-P selenium-projectname-regression-test clean test')
+          mavenInstallation("ADOP Maven")
+        }
+    }	
+}
+
 
 
