@@ -11,11 +11,13 @@ def cp_FolderName = hfm_FolderName + "/Create_Project"
 def hcmManDepConRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDConfiguration"
 def hcmManDepAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDApplication"
 def hcmEmpManAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDPersonManagement"
-def hcmEnableFeatRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPEnableFeature"
-def hcmCreateProjAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPCreateProject"
-def hcmManageCurrenciesAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CPManageCurrencies"
-def hcmImpProjConRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_FSMSetups"
-def hcmCreateUserAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_CreateUser"
+def hcmSet1Config = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_Config"
+def hcmEnableFeatRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_EnableFeature"
+def hcmCreateProjAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_CreateProject"
+def hcmManageCurrenciesAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_ManageCurrencies"
+def hcmCreateUserAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_CreateUser"
+def hcmAddDataRoleAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_CreateDataRole"
+def hcmApplyDataRoleAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_ApplyDataRole"
 
 // Jobs
 def retrieveConfig = freeStyleJob(md_FolderName + "/Retrieve_Configuration")
@@ -30,12 +32,14 @@ def enablefeature = freeStyleJob(cp_FolderName + "/Enable_Feature")
 def createproject = freeStyleJob(cp_FolderName + "/Create_Project")
 def managecurrencies = freeStyleJob(cp_FolderName + "/Manage_Currencies")
 def createuser = freeStyleJob(cp_FolderName + "/Create_User")
+def adddatarole = freeStyleJob(cp_FolderName + "/Add_User_Data_Role")
+def applydatarole = freeStyleJob(cp_FolderName + "/Apply_Data_Role")
 
 // Pipeline
 def manageDepartment_pipeline = buildPipelineView(md_FolderName + "/Manage_Department")
 def createDepartment_pipeline = buildPipelineView(cd_FolderName + "/Create_Department")
 def personManagement_pipeline = buildPipelineView(pm_FolderName + "/Person_Management")
-def usecase1_pipeline = buildPipelineView(cp_FolderName + "/Use_Case1")
+def usecase1_pipeline = buildPipelineView(cp_FolderName + "/Set1")
 
 manageDepartment_pipeline.with{
     title('Manage_Department')
@@ -62,7 +66,7 @@ personManagement_pipeline.with {
 }
 
 usecase1_pipeline.with{
-    title('Use_Case1')
+    title('Set 1')
     displayedBuilds(5)
     selectedJob(cp_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
@@ -359,7 +363,7 @@ retrieveConfig_4.with{
   scm{
     git{
       remote{
-        url(hcmImpProjConRepo)
+        url(hcmSet1Config)
         credentials("adop-jenkins-master")
       }
       branch("*/master")
@@ -500,7 +504,93 @@ createuser.with{
     }
 	publishers{
     downstreamParameterized{
-      trigger(cp_FolderName + "/--NextJob"){
+      trigger(cp_FolderName + "/Add_User_Data_Role"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }	
+}
+
+adddatarole.with {
+  description("This job add data role to the user in Oracle HCM Application")
+	parameters{
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+		}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    scm{
+        git{
+            remote{
+                url(hcmAddDataRoleAppRepo)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+    steps {
+        maven{
+          rootPOM('pom.xml')
+          goals('-P selenium-projectname-regression-test clean test')
+          mavenInstallation("ADOP Maven")
+        }
+    }
+	publishers{
+    downstreamParameterized{
+      trigger(cp_FolderName + "/Apply_Data_Role"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }	
+}
+
+adddatarole.with {
+  description("This job apply the data role to the user in Oracle HCM Application")
+	parameters{
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+		}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    scm{
+        git{
+            remote{
+                url(hcmApplyDataRoleAppRepo)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+    steps {
+        maven{
+          rootPOM('pom.xml')
+          goals('-P selenium-projectname-regression-test clean test')
+          mavenInstallation("ADOP Maven")
+        }
+    }
+	publishers{
+    downstreamParameterized{
+      trigger(cp_FolderName + "/Manage_Currencies"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
