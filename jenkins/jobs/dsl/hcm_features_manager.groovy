@@ -5,7 +5,7 @@ def hfm_FolderName = projectFolderName + "/HCM_Features_Manager"
 def md_FolderName = hfm_FolderName + "/Manage_Department"
 def cd_FolderName = hfm_FolderName + "/Create_Department"
 def pm_FolderName = hfm_FolderName + "/Person_Management"
-def cp_FolderName = hfm_FolderName + "/Create_Project"
+def cp_FolderName = hfm_FolderName + "/Set_1"
 
 // Repositories
 def hcmManDepConRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDConfiguration"

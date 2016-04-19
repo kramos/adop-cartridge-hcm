@@ -1,10 +1,13 @@
-https://github.com/paoloxide/HCM_CreateProject.git
-https://github.com/paoloxide/HCM_Configurations.git
-https://github.com/paoloxide/HCM_Selenium.git
-https://github.com/paoloxide/HCM_EnableFeature.git
+https://github.com/paoloxide/HCM_Set1_CreateProject.git
+https://github.com/paoloxide/HCM_Set1_Config.git
+https://github.com/paoloxide/HCM_Set1_EnableFeature.git
 https://github.com/paoloxide/HCM_MDApplication.git
 https://github.com/paoloxide/HCM_MDConfiguration.git
-https://github.com/paoloxide/HCM_CareerDevelopmentGoals.git
-https://github.com/paoloxide/HCM_WorkforceGoals.git
 https://github.com/paoloxide/HCM_MDPersonManagement.git
+https://github.com/paoloxide/HCM_Set1_ManageCurrencies.git
+https://github.com/paoloxide/HCM_Set1_CreateUser.git
+https://github.com/paoloxide/HCM_Set1_CreateDataRole.git
+https://github.com/paoloxide/HCM_Set1_ApplyDataRole.git
+
+
 
