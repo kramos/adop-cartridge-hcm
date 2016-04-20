@@ -558,7 +558,7 @@ adddatarole.with {
   }	
 }
 
-adddatarole.with {
+applydatarole.with {
   description("This job apply the data role to the user in Oracle HCM Application")
 	parameters{
 		stringParam("B","","Build Number")
