@@ -130,6 +130,13 @@ createDepartment.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
+		
+		
     }
 	publishers{
     downstreamParameterized{
@@ -170,6 +177,11 @@ employeeManagement.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -300,6 +312,11 @@ createDepartment_2.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 }
 
@@ -415,6 +432,11 @@ enablefeature.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -458,6 +480,11 @@ createproject.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -501,6 +528,11 @@ createuser.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -544,6 +576,11 @@ adddatarole.with {
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -587,6 +624,11 @@ applydatarole.with {
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -630,6 +672,11 @@ managecurrencies.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }	
 }
 

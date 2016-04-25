@@ -91,6 +91,11 @@ ratetypes.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -134,6 +139,11 @@ legdatagroups.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -177,6 +187,11 @@ legaladdress.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -220,6 +235,11 @@ datasets.with{
           goals('-P selenium-projectname-regression-test clean test')
           mavenInstallation("ADOP Maven")
         }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
     }
 	publishers{
     downstreamParameterized{
