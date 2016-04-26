@@ -8,6 +8,7 @@ https://github.com/paoloxide/HCM_Set1_ManageCurrencies.git
 https://github.com/paoloxide/HCM_Set1_CreateUser.git
 https://github.com/paoloxide/HCM_Set1_CreateDataRole.git
 https://github.com/paoloxide/HCM_Set1_ApplyDataRole.git
+https://github.com/paoloxide/HCM_Set2_Config.git
 https://github.com/paoloxide/HCM_Set2_ManageReferenceDataSets.git
 https://github.com/paoloxide/HCM_Set2_ManageLegalAddress.git
 https://github.com/paoloxide/HCM_Set2_LegislativeDataGroups.git
