@@ -6,7 +6,7 @@ def set2_FolderName = hfm_FolderName + "/Set_2"
 
 // Repositories
 def hcmSet2Config = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_Config"
-def hcmConvRateTypesRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ConversionRateType"
+def hcmConvRateTypesRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ConversionRateTypes"
 def hcmLegDataGrpRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_LegislativeDataGroups"
 def hcmManageLegAddRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ManageLegalAddress"
 def hcmManageRefDataSetsRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ManageReferenceDataSets"
@@ -178,7 +178,7 @@ hcmEstablishEntStrcut.with {
     }
 	publishers{
     downstreamParameterized{
-      trigger(set2_FolderName + "Manage_Reference_Data_Sets"){
+      trigger(set2_FolderName + "/Manage_Reference_Data_Sets"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
