@@ -11,13 +11,14 @@ def hcmLegDataGrpRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_Leg
 def hcmManageLegAddRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ManageLegalAddress"
 def hcmManageRefDataSetsRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ManageReferenceDataSets"
 
+
 // Jobs
 def retrieveConfig = freeStyleJob(set2_FolderName + "/Retrieve_Configuration")
 def ratetypes = freeStyleJob(set2_FolderName + "/Conversion_Rate_Types")
 def legdatagroups = freeStyleJob(set2_FolderName + "/Legislative_Data_Groups")
 def legaladdress = freeStyleJob(set2_FolderName + "/Manage_Legal_Address")
 def datasets = freeStyleJob(set2_FolderName + "/Manage_Reference_Data_Sets")
-
+def hcmEstablishEntStrcut = freeStyleJob(set2_FolderName + "/Establish_Enterprise_Structure")
 
 // Pipeline
 def usecase2_pipeline = buildPipelineView(set2_FolderName + "/Set2")
@@ -99,7 +100,34 @@ ratetypes.with{
     }
 	publishers{
     downstreamParameterized{
-      trigger(){
+      trigger(set2_FolderName + "/Manage_Legal_Address"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }
+}
+
+hcmEstablishEntStrcut.with {
+	description("Establish Enterprise Structure in HCM Application")
+	parameters {
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+	}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+	publishers{
+    downstreamParameterized{
+      trigger(set2_FolderName + "Manage_Reference_Data_Sets"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -195,7 +223,7 @@ legaladdress.with{
     }
 	publishers{
     downstreamParameterized{
-      trigger(){
+      trigger(set2_FolderName + "/Establish_Enterprise_Structure"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -243,7 +271,7 @@ datasets.with{
     }
 	publishers{
     downstreamParameterized{
-      trigger(){
+      trigger(set2_FolderName + "/Legislative_Data_Groups"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
