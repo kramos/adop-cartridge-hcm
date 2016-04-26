@@ -31,6 +31,9 @@ usecase2_pipeline.with{
     refreshFrequency(5)
 }
 
+
+// Set 2 jobs
+
 retrieveConfig.with{
     description("This retrieves the configuration file that will be used as a template for use case set 2 to the Oracle HCM Application")
     wrappers {
@@ -111,81 +114,6 @@ ratetypes.with{
   }
 }
 
-hcmEstablishEntStrcut.with {
-	description("Establish Enterprise Structure in HCM Application")
-	parameters {
-		stringParam("B","","Build Number")
-		stringParam("PARENT_BUILD","","Parent Build Job")
-	}
-    wrappers {
-        preBuildCleanup()
-        sshAgent("adop-jenkins-master")
-    }
-    environmentVariables {
-      env('WORKSPACE_NAME',workspaceFolderName)
-      env('PROJECT_NAME',projectFolderName)
-    }
-	publishers{
-    downstreamParameterized{
-      trigger(set2_FolderName + "Manage_Reference_Data_Sets"){
-        condition("SUCCESS")
-		  parameters{
-          predefinedProp("B",'${BUILD_NUMBER}')
-          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
-        }
-      }
-    }
-  }
-}
-
-legdatagroups.with{
-    description("Legislative Data Groups in HCM Application")
-	parameters {
-		stringParam("B","","Build Number")
-		stringParam("PARENT_BUILD","","Parent Build Job")
-	}
-    wrappers {
-        preBuildCleanup()
-        sshAgent("adop-jenkins-master")
-    }
-    scm{
-        git{
-            remote{
-                url(hcmLegDataGrpRepo)
-                credentials("adop-jenkins-master")
-            }
-            branch("*/master")
-        }
-    }
-    environmentVariables {
-      env('WORKSPACE_NAME',workspaceFolderName)
-      env('PROJECT_NAME',projectFolderName)
-    }
-    steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
-		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
-		''')
-    }
-	publishers{
-    downstreamParameterized{
-      trigger(){
-        condition("SUCCESS")
-		  parameters{
-          predefinedProp("B",'${BUILD_NUMBER}')
-          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
-        }
-      }
-    }
-  }
-}
-
 legaladdress.with{
     description("This job Manage Legal Address in HCM Application")
 	parameters {
@@ -224,6 +152,33 @@ legaladdress.with{
 	publishers{
     downstreamParameterized{
       trigger(set2_FolderName + "/Establish_Enterprise_Structure"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }
+}
+
+hcmEstablishEntStrcut.with {
+	description("Establish Enterprise Structure in HCM Application")
+	parameters {
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+	}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+	publishers{
+    downstreamParameterized{
+      trigger(set2_FolderName + "Manage_Reference_Data_Sets"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -281,3 +236,43 @@ datasets.with{
     }
   }
 }
+
+legdatagroups.with{
+    description("Legislative Data Groups in HCM Application")
+	parameters {
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+	}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    scm{
+        git{
+            remote{
+                url(hcmLegDataGrpRepo)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+    steps {
+        maven{
+          rootPOM('pom.xml')
+          goals('-P selenium-projectname-regression-test clean test')
+          mavenInstallation("ADOP Maven")
+        }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites
+				 rm -f .classpath .project pom.xml README.md
+		''')
+    }
+}
+
+
+
