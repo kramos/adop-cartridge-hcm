@@ -13,6 +13,8 @@ https://github.com/paoloxide/HCM_Set2_ManageReferenceDataSets.git
 https://github.com/paoloxide/HCM_Set2_ManageLegalAddress.git
 https://github.com/paoloxide/HCM_Set2_LegislativeDataGroups.git
 https://github.com/paoloxide/HCM_Set2_ConversionRateTypes.git
+https://github.com/paoloxide/HCM_Set2_EstablishenterpriseStructure.git
+
 
 
 

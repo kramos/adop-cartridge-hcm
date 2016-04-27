@@ -10,6 +10,7 @@ def hcmConvRateTypesRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_
 def hcmLegDataGrpRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_LegislativeDataGroups"
 def hcmManageLegAddRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ManageLegalAddress"
 def hcmManageRefDataSetsRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ManageReferenceDataSets"
+def hcmEstablishEnterpriseStrucRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_EstablishenterpriseStructure"
 
 
 // Jobs
@@ -97,8 +98,8 @@ ratetypes.with{
         }
 		
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
 		''')
     }
 	publishers{
@@ -145,8 +146,8 @@ legaladdress.with{
         }
 		
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
 		''')
     }
 	publishers{
@@ -172,9 +173,30 @@ hcmEstablishEntStrcut.with {
         preBuildCleanup()
         sshAgent("adop-jenkins-master")
     }
+	scm{
+        git{
+            remote{
+                url(hcmEstablishEnterpriseStrucRepo)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
     environmentVariables {
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
+    }
+	 steps {
+        maven{
+          rootPOM('pom.xml')
+          goals('-P selenium-projectname-regression-test clean test')
+          mavenInstallation("ADOP Maven")
+        }
+		
+		shell('''#!/bin/bash
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
+		''')
     }
 	publishers{
     downstreamParameterized{
@@ -220,8 +242,8 @@ datasets.with{
         }
 		
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
 		''')
     }
 	publishers{
@@ -268,8 +290,8 @@ legdatagroups.with{
         }
 		
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
 		''')
     }
 }
