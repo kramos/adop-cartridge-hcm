@@ -13,11 +13,7 @@ def hcmManDepAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDApplica
 def hcmEmpManAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_MDPersonManagement"
 def hcmSet1Config = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_Config"
 def hcmEnableFeatRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_EnableFeature"
-def hcmCreateProjAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_CreateProject"
-def hcmManageCurrenciesAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_ManageCurrencies"
-def hcmCreateUserAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_CreateUser"
-def hcmAddDataRoleAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_CreateDataRole"
-def hcmApplyDataRoleAppRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set1_ApplyDataRole"
+def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
 def retrieveConfig = freeStyleJob(md_FolderName + "/Retrieve_Configuration")
@@ -132,8 +128,8 @@ createDepartment.with{
         }
 		
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
 		''')
 		
 		
@@ -179,8 +175,8 @@ employeeManagement.with{
         }
 		
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
 		''')
     }
 	publishers{
@@ -314,8 +310,8 @@ createDepartment_2.with{
         }
 		
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
 		''')
     }
 }
@@ -434,8 +430,8 @@ enablefeature.with{
         }
 		
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+				 rm -rf .settings bin resources src target testng-suites .git
+				 rm -f .classpath .project pom.xml README.md .gitignore
 		''')
     }
 	publishers{
@@ -464,7 +460,7 @@ createproject.with{
     scm{
         git{
             remote{
-                url(hcmCreateProjAppRepo)
+                url(hcmapp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -474,18 +470,25 @@ createproject.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
     }
-    steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+   	steps {
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Create_Project/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Implementation Project" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }
+	}
 	publishers{
     downstreamParameterized{
       trigger(cp_FolderName + "/Create_User"){
@@ -512,7 +515,7 @@ createuser.with{
     scm{
         git{
             remote{
-                url(hcmCreateUserAppRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -523,17 +526,24 @@ createuser.with{
       env('PROJECT_NAME',projectFolderName)
     }
     steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Create_User/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Create Implementation User" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }
+	}
 	publishers{
     downstreamParameterized{
       trigger(cp_FolderName + "/Add_User_Data_Role"){
@@ -560,7 +570,7 @@ adddatarole.with {
     scm{
         git{
             remote{
-                url(hcmAddDataRoleAppRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -571,17 +581,24 @@ adddatarole.with {
       env('PROJECT_NAME',projectFolderName)
     }
     steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Add_User_Data_Role/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Create Data Role for Implementation Users" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }
+	}
 	publishers{
     downstreamParameterized{
       trigger(cp_FolderName + "/Apply_Data_Role"){
@@ -608,7 +625,7 @@ applydatarole.with {
     scm{
         git{
             remote{
-                url(hcmApplyDataRoleAppRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -619,17 +636,24 @@ applydatarole.with {
       env('PROJECT_NAME',projectFolderName)
     }
     steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Apply_Data_Role/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Provision Role to Implementation Users" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }
+	}
 	publishers{
     downstreamParameterized{
       trigger(cp_FolderName + "/Manage_Currencies"){
@@ -656,7 +680,7 @@ managecurrencies.with{
     scm{
         git{
             remote{
-                url(hcmManageCurrenciesAppRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -666,18 +690,25 @@ managecurrencies.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
     }
-    steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+     steps {
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites
-				 rm -f .classpath .project pom.xml README.md
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Apply_Data_Role/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Currencies" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }	
+	}
 }
 
 

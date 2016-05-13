@@ -1,19 +1,12 @@
-https://github.com/paoloxide/HCM_Set1_CreateProject.git
 https://github.com/paoloxide/HCM_Set1_Config.git
 https://github.com/paoloxide/HCM_Set1_EnableFeature.git
 https://github.com/paoloxide/HCM_MDApplication.git
 https://github.com/paoloxide/HCM_MDConfiguration.git
 https://github.com/paoloxide/HCM_MDPersonManagement.git
-https://github.com/paoloxide/HCM_Set1_ManageCurrencies.git
-https://github.com/paoloxide/HCM_Set1_CreateUser.git
-https://github.com/paoloxide/HCM_Set1_CreateDataRole.git
-https://github.com/paoloxide/HCM_Set1_ApplyDataRole.git
 https://github.com/paoloxide/HCM_Set2_Config.git
-https://github.com/paoloxide/HCM_Set2_ManageReferenceDataSets.git
-https://github.com/paoloxide/HCM_Set2_ManageLegalAddress.git
-https://github.com/paoloxide/HCM_Set2_LegislativeDataGroups.git
-https://github.com/paoloxide/HCM_Set2_ConversionRateTypes.git
 https://github.com/paoloxide/HCM_Set2_EstablishenterpriseStructure.git
+https://github.com/paoloxide/HCM_App_Repo.git
+
 
 
 

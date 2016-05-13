@@ -6,11 +6,8 @@ def set2_FolderName = hfm_FolderName + "/Set_2"
 
 // Repositories
 def hcmSet2Config = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_Config"
-def hcmConvRateTypesRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ConversionRateTypes"
-def hcmLegDataGrpRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_LegislativeDataGroups"
-def hcmManageLegAddRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ManageLegalAddress"
-def hcmManageRefDataSetsRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_ManageReferenceDataSets"
 def hcmEstablishEnterpriseStrucRepo = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set2_EstablishenterpriseStructure"
+def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 
 // Jobs
@@ -80,7 +77,7 @@ ratetypes.with{
     scm{
         git{
             remote{
-                url(hcmConvRateTypesRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -90,18 +87,25 @@ ratetypes.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
     }
-    steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+     steps {
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites .git
-				 rm -f .classpath .project pom.xml README.md .gitignore
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Conversion_Rate_Types/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Conversion Rate Types" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }
+	}
 	publishers{
     downstreamParameterized{
       trigger(set2_FolderName + "/Manage_Legal_Address"){
@@ -128,7 +132,7 @@ legaladdress.with{
     scm{
         git{
             remote{
-                url(hcmManageLegAddRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -139,17 +143,24 @@ legaladdress.with{
       env('PROJECT_NAME',projectFolderName)
     }
     steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites .git
-				 rm -f .classpath .project pom.xml README.md .gitignore
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Manage_Legal_Address/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Addresses" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }
+	}
 	publishers{
     downstreamParameterized{
       trigger(set2_FolderName + "/Establish_Enterprise_Structure"){
@@ -224,7 +235,7 @@ datasets.with{
     scm{
         git{
             remote{
-                url(hcmManageRefDataSetsRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -234,18 +245,25 @@ datasets.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
     }
-    steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+     steps {
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites .git
-				 rm -f .classpath .project pom.xml README.md .gitignore
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Manage_Reference_Data_Sets/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Reference Data Sets" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }
+	}
 	publishers{
     downstreamParameterized{
       trigger(set2_FolderName + "/Legislative_Data_Groups"){
@@ -282,18 +300,25 @@ legdatagroups.with{
       env('WORKSPACE_NAME',workspaceFolderName)
       env('PROJECT_NAME',projectFolderName)
     }
-    steps {
-        maven{
-          rootPOM('pom.xml')
-          goals('-P selenium-projectname-regression-test clean test')
-          mavenInstallation("ADOP Maven")
-        }
-		
+     steps {
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
 		shell('''#!/bin/bash
-				 rm -rf .settings bin resources src target testng-suites .git
-				 rm -f .classpath .project pom.xml README.md .gitignore
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Legislative_Data_Groups/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legislative Data Groups" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE		
 		''')
-    }
+	}
 }
 
 
