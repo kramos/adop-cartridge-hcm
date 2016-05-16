@@ -4,8 +4,12 @@ https://github.com/paoloxide/HCM_MDApplication.git
 https://github.com/paoloxide/HCM_MDConfiguration.git
 https://github.com/paoloxide/HCM_MDPersonManagement.git
 https://github.com/paoloxide/HCM_Set2_Config.git
-https://github.com/paoloxide/HCM_Set2_EstablishenterpriseStructure.git
 https://github.com/paoloxide/HCM_App_Repo.git
+https://github.com/paoloxide/HCM_Set3_Config.git
+https://github.com/paoloxide/HCM_Set4_Config.git
+https://github.com/paoloxide/HCM_Set_5_6_Config.git
+https://github.com/paoloxide/HCM_Set_7_8_Config.git
+
 
 
 
