@@ -43,7 +43,7 @@ retrieveConfig.with{
   scm{
     git{
       remote{
-        url(hcmSet3Config)
+        url(hcmSet7Config)
         credentials("adop-jenkins-master")
       }
       branch("*/master")
@@ -259,7 +259,7 @@ graderates.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -304,7 +304,7 @@ gradeladders.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -349,7 +349,7 @@ jobfamilies.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -394,7 +394,7 @@ managejob.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -439,7 +439,7 @@ managepositions.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")

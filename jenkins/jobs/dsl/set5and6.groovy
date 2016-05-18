@@ -45,7 +45,7 @@ retrieveConfig.with{
   scm{
     git{
       remote{
-        url(hcmSet3Config)
+        url(hcmSet5Config)
         credentials("adop-jenkins-master")
       }
       branch("*/master")
