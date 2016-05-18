@@ -130,7 +130,7 @@ createproject.with{
     scm{
         git{
             remote{
-                url(hcmapp)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")

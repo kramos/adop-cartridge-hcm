@@ -291,7 +291,7 @@ legalentityhcminfo.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")

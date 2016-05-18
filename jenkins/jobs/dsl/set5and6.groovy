@@ -297,7 +297,7 @@ enterprisehcminfo.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -342,7 +342,7 @@ manageactions.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -396,7 +396,7 @@ actionreasons.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -450,7 +450,7 @@ managelocations.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -504,7 +504,7 @@ managedivsions.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -558,7 +558,7 @@ managedept.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
@@ -612,7 +612,7 @@ depttrees.with{
     scm{
         git{
             remote{
-                url(hcmLegDataGrpRepo)
+                url(hcmApp)
                 credentials("adop-jenkins-master")
             }
             branch("*/master")
