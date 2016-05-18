@@ -51,7 +51,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(set3_FolderName + "/Conversion_Rate_Types"){
+      trigger(set3_FolderName + "/Legal_Entity"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -91,7 +91,7 @@ legaljurisdicttion.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Conversion_Rate_Types/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Conversion Rate Types" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Legal_Jurisdiction/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Jurisdictions" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
@@ -100,7 +100,7 @@ legaljurisdicttion.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE	
 		''')
 	}
 	publishers{
@@ -145,7 +145,7 @@ legalauthorities.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Manage_Legal_Address/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Addresses" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Legal_Authorities/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Authorities" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
@@ -159,7 +159,7 @@ legalauthorities.with{
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set3_FolderName + "/Legal_Entity"){
+      trigger(set3_FolderName + "/Legal_Entity_HCM_Information"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -200,7 +200,7 @@ legalentity.with {
         }
 		
 		shell('''#!/bin/bash
-				 java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Establish_Enterprise_Structure/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Establish Enterprise Structures" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
+				 java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Legal_Entity/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Entity" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
@@ -253,7 +253,8 @@ legalentityreg.with{
 		goals('clean install')
 		mavenInstallation("ADOP Maven")
 	}
-		shell('''java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Legal_Entity_Registration/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legislative Data Groups" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Retrieve_Configuration/workspace
+		shell('''#!/bin/bash
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Legal_Entity_Registration/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Entity Registration" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
@@ -267,7 +268,7 @@ legalentityreg.with{
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set3_FolderName + "/Legal_Entity_HCM_Information"){
+      trigger(set3_FolderName + "/Legal_Jurisdiction"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -307,7 +308,7 @@ legalentityhcminfo.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Legislative_Data_Groups/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legislative Data Groups" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Legal_Entity_HCM_Information/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Entity HCM Information" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       

@@ -206,7 +206,7 @@ valuesetforglobalhumanresources.with {
         }
 		
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Value_Sets_for_Global_Human_Resources/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legislative Data Groups" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Retrieve_Configuration/workspace
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Value_Sets_for_Global_Human_Resources/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Value Sets" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
@@ -259,7 +259,8 @@ organizationstructuredescriptiveflexfields.with{
 		goals('clean install')
 		mavenInstallation("ADOP Maven")
 	}
-		shell('''java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Legal_Entity_Registration/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legislative Data Groups" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_3/jobs/Retrieve_Configuration/workspace
+		shell('''#!/bin/bash
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Organization_Structure_Descriptive_Flexfields/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Organization Structure Descriptive Flexfields" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
@@ -313,16 +314,7 @@ enterprisehcminfo.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Legislative_Data_Groups/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legislative Data Groups" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_2/jobs/Retrieve_Configuration/workspace
-		cd ..
-			mkdir screenshots 
-			cd screenshots       
-			cp -avr $WORKSPACE/target/screenshots/* .
-			cd ..
-			rm -rf $WORKSPACE/*
-			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
-			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+		in progress		
 		''')
 	}
 	publishers{
@@ -475,7 +467,16 @@ managelocations.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-				in progress
+				java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Manage_Locations/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Locations" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE
 		''')
 	}
 	publishers{
@@ -520,7 +521,16 @@ managedivsions.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-				in progress
+				java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Manage_Divisions/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Divisions" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE
 		''')
 	}
 	publishers{
@@ -565,7 +575,16 @@ managedept.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-				in progress
+				java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Manage_Departments/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Departments" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_5_and_6/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE
 		''')
 	}
 	publishers{
@@ -620,6 +639,7 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
         mv screenshots $WORKSPACE
+
 		''')
 	}
 }
