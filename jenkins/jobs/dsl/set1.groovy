@@ -58,7 +58,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(cp_FolderName + "/Enable_Feature"){
+      trigger(cp_FolderName + "/Create_Project"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
