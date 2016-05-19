@@ -202,7 +202,7 @@ createuser.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Create_User/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Create Implementation User" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Create_User/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Create Implementation Users" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
@@ -257,7 +257,7 @@ adddatarole.with {
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Add_User_Data_Role/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Create Data Role for Implementation Users" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Add_User_Data_Role/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Create Data Roles for Implementation Users" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
@@ -367,7 +367,7 @@ managecurrencies.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Apply_Data_Role/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Currencies" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
+		java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Manage_Currencies/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Currencies" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_1/jobs/Retrieve_Configuration/workspace
 		cd ..
 			mkdir screenshots 
 			cd screenshots       
