@@ -15,7 +15,7 @@ def applydatarole = freeStyleJob(implementdatarole_FolderName + "/Apply_Data_Rol
 // Pipeline
 def applydatarole_pipeline = buildPipelineView(implementdatarole_FolderName + "/Implement_Data_Role_To_Users")
 
-createuser_pipeline.with{
+applydatarole_pipeline.with{
     title('Implement Data Role to Users')
     displayedBuilds(5)
     selectedJob(implementdatarole_FolderName + "/Retrieve_Configuration")
@@ -30,6 +30,7 @@ retrieveConfig.with{
     sshAgent("adop-jenkins-master")
   }
   scm{
+  authenticationToken('SW1wbGVtZW50RGF0YVJvbGU=')
     git{
       remote{
         url(hcmCoreConfig)

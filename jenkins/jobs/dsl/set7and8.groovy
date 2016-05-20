@@ -140,7 +140,16 @@ disablityorganization.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-in progress	
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Disability_Organizations/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Disability Organizations" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE
 		''')
 	}
 	publishers{
@@ -186,7 +195,16 @@ organizationtrees.with {
         }
 		
 		shell('''#!/bin/bash
-in progress
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Organization_Trees/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Organization Trees" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE
 		''')
     }
 	publishers{
@@ -366,7 +384,16 @@ jobfamilies.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-in progress		
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Job_Families/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Job Families" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE	
 		''')
 	}
 	publishers{
@@ -456,7 +483,16 @@ managepositions.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-				in progress
+				java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Manage_Positions/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Positions" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
+		cd ..
+			mkdir screenshots 
+			cd screenshots       
+			cp -avr $WORKSPACE/target/screenshots/* .
+			cd ..
+			rm -rf $WORKSPACE/*
+			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+        mv screenshots $WORKSPACE
 		''')
 	}
 }

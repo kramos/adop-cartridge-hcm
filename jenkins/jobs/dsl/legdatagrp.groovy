@@ -2,23 +2,23 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def pertask_FolderName = projectFolder + "/HCM-Core_per_Task"
-def managecurrencies_FolderName = pertask_FolderName + "/Manage_Currencies"
+def legdatagrp_FolderName = pertask_FolderName + "/Legislative_Data_Groups"
 
 // Repositories
 def hcmCoreConfig = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM-Core_Config"
 def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
-def retrieveConfig = freeStyleJob(managecurrencies_FolderName + "/Retrieve_Configuration")
-def managecurrencies = freeStyleJob(managecurrencies_FolderName + "/Manage_Currencies")
+def retrieveConfig = freeStyleJob(legdatagrp_FolderName + "/Retrieve_Configuration")
+def legdatagrp = freeStyleJob(legdatagrp_FolderName + "/Legislative_Data_Groups")
 
 // Pipeline
-def applydatarole_pipeline = buildPipelineView(managecurrencies_FolderName + "/Manage_Currencies")
+def legdatagrp_pipeline = buildPipelineView(legdatagrp_FolderName + "/Legislative_Data_Groups")
 
-createuser_pipeline.with{
-    title('Manage Currencies')
+legdatagrp_pipeline.with{
+    title('Legislative Data Group')
     displayedBuilds(5)
-    selectedJob(managecurrencies_FolderName + "/Retrieve_Configuration")
+    selectedJob(legdatagrp_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
     refreshFrequency(5)
 }
@@ -29,7 +29,7 @@ retrieveConfig.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
-  authenticationToken('TWFuYWdlQ3VycmVuY2llcw==')
+  authenticationToken('TGVnaXNsYXRpdmVEYXRhR3JvdXBz')
   scm{
     git{
       remote{
@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(managecurrencies_FolderName + "/Manage_Currencies){
+      trigger(legdatagrp_FolderName + "/Legislative_Data_Groups){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -56,7 +56,7 @@ retrieveConfig.with{
   }
 }
 
-managecurrencies.with{
+legdatagrp.with{
 	parameters{
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -86,7 +86,7 @@ managecurrencies.with{
         }
 		
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Currencies/jobs/Manage_Currencies/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Currencies" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Currencies/jobs/Retrieve_Configuration/workspace
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Legislative_Data_Groups/jobs/Legislative_Data_Groups/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legislative Data Groups" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Legislative_Data_Groups/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 
 cd screenshots       

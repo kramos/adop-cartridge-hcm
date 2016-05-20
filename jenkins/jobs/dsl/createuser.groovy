@@ -29,6 +29,7 @@ retrieveConfig.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
+  authenticationToken('Q3JlYXRlSW1wbGVtZW50YXRpb25Vc2Vy')
   scm{
     git{
       remote{

@@ -2,23 +2,23 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def pertask_FolderName = projectFolder + "/HCM-Core_per_Task"
-def managecurrencies_FolderName = pertask_FolderName + "/Manage_Currencies"
+def legreportingunit_FolderName = pertask_FolderName + "/Legal_Reporting_Unit"
 
 // Repositories
 def hcmCoreConfig = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM-Core_Config"
 def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
-def retrieveConfig = freeStyleJob(managecurrencies_FolderName + "/Retrieve_Configuration")
-def managecurrencies = freeStyleJob(managecurrencies_FolderName + "/Manage_Currencies")
+def retrieveConfig = freeStyleJob(legreportingunit_FolderName + "/Retrieve_Configuration")
+def legreportingunit = freeStyleJob(legreportingunit_FolderName + "/Legal_Reporting_Unit")
 
 // Pipeline
-def applydatarole_pipeline = buildPipelineView(managecurrencies_FolderName + "/Manage_Currencies")
+def legreportingunit_pipeline = buildPipelineView(legreportingunit_FolderName + "/Legal_Reporting_Unit")
 
-createuser_pipeline.with{
-    title('Manage Currencies')
+legreportingunit_pipeline.with{
+    title('Legal Reporting Unit')
     displayedBuilds(5)
-    selectedJob(managecurrencies_FolderName + "/Retrieve_Configuration")
+    selectedJob(legreportingunit_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
     refreshFrequency(5)
 }
@@ -29,7 +29,7 @@ retrieveConfig.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
-  authenticationToken('TWFuYWdlQ3VycmVuY2llcw==')
+  authenticationToken('TGVnYWxSZXBvcnRpbmdVbml0')
   scm{
     git{
       remote{
@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(managecurrencies_FolderName + "/Manage_Currencies){
+      trigger(legreportingunit_FolderName + "/Legal_Reporting_Unit"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -56,7 +56,7 @@ retrieveConfig.with{
   }
 }
 
-managecurrencies.with{
+legreportingunit.with{
 	parameters{
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -86,7 +86,7 @@ managecurrencies.with{
         }
 		
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Currencies/jobs/Manage_Currencies/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Currencies" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Currencies/jobs/Retrieve_Configuration/workspace
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Legal_Reporting_Unit/jobs/Legal_Reporting_Unit/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Reporting Unit" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Legal_Reporting_Unit/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 
 cd screenshots       

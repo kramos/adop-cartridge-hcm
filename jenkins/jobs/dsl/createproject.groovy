@@ -9,7 +9,7 @@ def hcmCoreConfig = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM-Core_Config"
 def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
-def retrieveConfig = freeStyleJob(c + "/Retrieve_Configuration")
+def retrieveConfig = freeStyleJob(createimplementationproject_FolderName + "/Retrieve_Configuration")
 def createproject = freeStyleJob(createimplementationproject_FolderName + "/Create_Implementation_Project")
 
 // Pipeline
@@ -29,6 +29,7 @@ retrieveConfig.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
+  authenticationToken('Q3JlYXRlSW1wbGVtZW50YXRpb25Vc2Vy')
   scm{
     git{
       remote{

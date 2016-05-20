@@ -15,7 +15,7 @@ def adddatarole = freeStyleJob(createdatarole_FolderName + "/Add_Data_Role")
 // Pipeline
 def adddatarole_pipeline = buildPipelineView(createdatarole_FolderName + "/Create_Data_Role_for_Users")
 
-createuser_pipeline.with{
+adddatarole_pipeline.with{
     title('Create Data Roles for Users')
     displayedBuilds(5)
     selectedJob(createdatarole_FolderName + "/Retrieve_Configuration")
@@ -29,6 +29,7 @@ retrieveConfig.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
+  authenticationToken('Q3JlYXRlRGF0YVJvbGU=')
   scm{
     git{
       remote{

@@ -2,23 +2,23 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def pertask_FolderName = projectFolder + "/HCM-Core_per_Task"
-def managecurrencies_FolderName = pertask_FolderName + "/Manage_Currencies"
+def establsihentstruc_FolderName = pertask_FolderName + "/Establish_Enterprise_Structure"
 
 // Repositories
 def hcmCoreConfig = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM-Core_Config"
 def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
-def retrieveConfig = freeStyleJob(managecurrencies_FolderName + "/Retrieve_Configuration")
-def managecurrencies = freeStyleJob(managecurrencies_FolderName + "/Manage_Currencies")
+def retrieveConfig = freeStyleJob(establsihentstruc_FolderName + "/Retrieve_Configuration")
+def enterprisestruc = freeStyleJob(establsihentstruc_FolderName + "/Establish_Enterprise_Structure")
 
 // Pipeline
-def applydatarole_pipeline = buildPipelineView(managecurrencies_FolderName + "/Manage_Currencies")
+def enterprisestruc_pipeline = buildPipelineView(establsihentstruc_FolderName + "/Establish_Enterprise_Structure")
 
-createuser_pipeline.with{
-    title('Manage Currencies')
+enterprisestruc_pipeline.with{
+    title('Establish Enterprise Structure')
     displayedBuilds(5)
-    selectedJob(managecurrencies_FolderName + "/Retrieve_Configuration")
+    selectedJob(establsihentstruc_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
     refreshFrequency(5)
 }
@@ -29,7 +29,7 @@ retrieveConfig.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
-  authenticationToken('TWFuYWdlQ3VycmVuY2llcw==')
+  authenticationToken('RXN0YWJsaXNoRW50ZXJwcmlzZVN0cnVjdHVyZQ==')
   scm{
     git{
       remote{
@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(managecurrencies_FolderName + "/Manage_Currencies){
+      trigger(establsihentstruc_FolderName + "/Establish_Enterprise_Structure){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -56,7 +56,7 @@ retrieveConfig.with{
   }
 }
 
-managecurrencies.with{
+enterprisestruc.with{
 	parameters{
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -86,7 +86,7 @@ managecurrencies.with{
         }
 		
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Currencies/jobs/Manage_Currencies/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Currencies" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Currencies/jobs/Retrieve_Configuration/workspace
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Establish_Enterprise_Structure/jobs/Establish_Enterprise_Structure/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Establish Enterprise Structures" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Establish_Enterprise_Structure/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 
 cd screenshots       

@@ -6,6 +6,7 @@ https://github.com/paoloxide/HCM_Set3_Config.git
 https://github.com/paoloxide/HCM_Set4_Config.git
 https://github.com/paoloxide/HCM_Set_5_6_Config.git
 https://github.com/paoloxide/HCM_Set_7_8_Config.git
+https://github.com/paoloxide/HCM-Core_Config.git
 
 
 
