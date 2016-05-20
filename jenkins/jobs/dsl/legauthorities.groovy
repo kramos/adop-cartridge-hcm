@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(legauth_FolderName + "/Legal_Authorities){
+      trigger(legauth_FolderName + "/Legal_Authorities"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')

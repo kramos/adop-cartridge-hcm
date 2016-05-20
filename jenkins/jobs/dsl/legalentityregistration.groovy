@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(legentityreg_FolderName + "/Legal_Entity_Registration){
+      trigger(legentityreg_FolderName + "/Legal_Entity_Registration"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')

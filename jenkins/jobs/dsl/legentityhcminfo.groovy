@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(legentityhcminfo_FolderName + "/Legal_Entity_HCM_Information){
+      trigger(legentityhcminfo_FolderName + "/Legal_Entity_HCM_Information"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')

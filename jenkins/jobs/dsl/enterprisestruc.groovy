@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(establsihentstruc_FolderName + "/Establish_Enterprise_Structure){
+      trigger(establsihentstruc_FolderName + "/Establish_Enterprise_Structure"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')

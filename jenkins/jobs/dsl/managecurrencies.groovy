@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(managecurrencies_FolderName + "/Manage_Currencies){
+      trigger(managecurrencies_FolderName + "/Manage_Currencies"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')

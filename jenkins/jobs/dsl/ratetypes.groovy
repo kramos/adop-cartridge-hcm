@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(conversionratetypes_FolderName + "/Conversion_Rate_Types){
+      trigger(conversionratetypes_FolderName + "/Conversion_Rate_Types"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')

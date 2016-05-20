@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(implementdatarole_FolderName + "/Apply_Data_Role){
+      trigger(implementdatarole_FolderName + "/Apply_Data_Role"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')

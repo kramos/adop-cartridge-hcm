@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(managelegaladdress_FolderName + "/Manage_Legal_Address){
+      trigger(managelegaladdress_FolderName + "/Manage_Legal_Address"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')

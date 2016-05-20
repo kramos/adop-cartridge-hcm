@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(dataset_FolderName + "/Manage_Reference_Data_Sets){
+      trigger(dataset_FolderName + "/Manage_Reference_Data_Sets"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
