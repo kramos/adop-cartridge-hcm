@@ -1,7 +1,7 @@
 // Folders
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
-def pertask_FolderName = projectFolder + "/HCM-Core_per_Task"
+def pertask_FolderName = projectFolderName + "/HCM-Core_per_Task"
 def legreportingunit_FolderName = pertask_FolderName + "/Legal_Reporting_Unit"
 
 // Repositories
