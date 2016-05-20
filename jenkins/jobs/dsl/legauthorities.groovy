@@ -15,7 +15,7 @@ def legauth = freeStyleJob(legauth_FolderName + "/Legal_Authorities")
 // Pipeline
 def legauth_pipeline = buildPipelineView(legauth_FolderName + "/Legal_Authorities")
 
-legjuris_pipeline.with{
+legauth_pipeline.with{
     title('Legal Authorities')
     displayedBuilds(5)
     selectedJob(legauth_FolderName + "/Retrieve_Configuration")

@@ -13,9 +13,9 @@ def retrieveConfig = freeStyleJob(managecurrencies_FolderName + "/Retrieve_Confi
 def managecurrencies = freeStyleJob(managecurrencies_FolderName + "/Manage_Currencies")
 
 // Pipeline
-def applydatarole_pipeline = buildPipelineView(managecurrencies_FolderName + "/Manage_Currencies")
+def managecurrencies_pipeline = buildPipelineView(managecurrencies_FolderName + "/Manage_Currencies")
 
-createuser_pipeline.with{
+managecurrencies_pipeline.with{
     title('Manage Currencies')
     displayedBuilds(5)
     selectedJob(managecurrencies_FolderName + "/Retrieve_Configuration")
