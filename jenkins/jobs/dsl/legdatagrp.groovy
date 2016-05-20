@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(legdatagrp_FolderName + "/Legislative_Data_Groups){
+      trigger(legdatagrp_FolderName + "/Legislative_Data_Groups"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
