@@ -13,7 +13,7 @@ def retrieveConfig = freeStyleJob(legreportingunitreg_FolderName + "/Retrieve_Co
 def legreportingunitreg = freeStyleJob(legreportingunitreg_FolderName + "/Legal_Reporting_Unit_Registrations")
 
 // Pipeline
-def legreportingunireg_pipeline = buildPipelineView(legreportingunitreg_FolderName + "/Legal_Reporting_Unit_Registrations")
+def legreportingunitreg_pipeline = buildPipelineView(legreportingunitreg_FolderName + "/Legal_Reporting_Unit_Registrations")
 
 legreportingunitreg_pipeline.with{
     title('Legal Reporting Unit Registrations')
