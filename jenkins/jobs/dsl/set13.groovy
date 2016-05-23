@@ -2,7 +2,7 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def hfm_FolderName = projectFolderName + "/HCM_Features_Manager"
-def set13_FolderName = hfm_FolderName + "/Set_13""
+def set13_FolderName = hfm_FolderName + "/Set_13"
 
 // Repositories
 def hcmSet13Config = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set13_Config"
