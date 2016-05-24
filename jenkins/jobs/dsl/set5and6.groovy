@@ -106,7 +106,8 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -160,7 +161,8 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -216,6 +218,7 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
         mv screenshots $WORKSPACE
+		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
     }
 	publishers{
@@ -269,7 +272,8 @@ organizationstructuredescriptiveflexfields.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -368,7 +372,8 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -422,7 +427,8 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -477,6 +483,7 @@ managelocations.with{
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
         mv screenshots $WORKSPACE
+		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 	publishers{
@@ -531,6 +538,7 @@ managedivsions.with{
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
         mv screenshots $WORKSPACE
+		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 	publishers{
@@ -585,6 +593,7 @@ managedept.with{
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
         mv screenshots $WORKSPACE
+		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 	publishers{
@@ -639,7 +648,7 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
         mv screenshots $WORKSPACE
-
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 }

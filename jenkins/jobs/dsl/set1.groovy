@@ -156,7 +156,8 @@ createproject.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -211,7 +212,8 @@ createuser.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 	publishers{
@@ -266,7 +268,8 @@ adddatarole.with {
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE	
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -321,7 +324,8 @@ applydatarole.with {
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -376,7 +380,8 @@ managecurrencies.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 }

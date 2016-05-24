@@ -100,7 +100,8 @@ legaljurisdicttion.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE	
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -154,7 +155,8 @@ legalauthorities.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -210,6 +212,7 @@ legalentity.with {
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
         mv screenshots $WORKSPACE
+		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
     }
 	publishers{
@@ -263,7 +266,8 @@ legalentityreg.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 	publishers{
@@ -317,7 +321,8 @@ legalentityhcminfo.with{
 			rm -rf $WORKSPACE/*
 			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE		
+        mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt		
 		''')
 	}
 }
