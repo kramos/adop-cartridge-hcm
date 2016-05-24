@@ -86,7 +86,6 @@ businessunitassignment.with{
         }
 		
 		shell('''#!/bin/bash
-#!/bin/bash
 java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Business_Unit_Set_Assignment/jobs/Manage_Business_Unit_Set_Assignment/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Business Unit Set Assignment" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Business_Unit_Set_Assignment/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 

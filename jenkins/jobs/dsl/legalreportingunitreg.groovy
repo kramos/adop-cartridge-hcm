@@ -86,7 +86,6 @@ legreportingunitreg.with{
         }
 		
 		shell('''#!/bin/bash
-#!/bin/bash
 java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Legal_Reporting_Unit_Registrations/jobs/Legal_Reporting_Unit_Registrations/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Legal Reporting Unit Registrations" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Legal_Reporting_Unit_Registrations/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 

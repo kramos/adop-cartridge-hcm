@@ -86,7 +86,6 @@ flexfields.with{
         }
 		
 		shell('''#!/bin/bash
-#!/bin/bash
 java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Organization_Structure_Descriptive_Flexfields/jobs/Manage_Organization_Structure_Descriptive_Flexfields/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Organization Structure Descriptive Flexfields" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Organization_Structure_Descriptive_Flexfields/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 

@@ -86,7 +86,6 @@ valueset.with{
         }
 		
 		shell('''#!/bin/bash
-#!/bin/bash
 java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Value_Sets_for_Global_Human_Resource/jobs/Manage_Value_Sets_for_Global_Human_Resource/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Value Sets" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Value_Sets_for_Global_Human_Resource/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 

@@ -86,7 +86,6 @@ actions.with{
         }
 		
 		shell('''#!/bin/bash
-#!/bin/bash
 java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Actions/jobs/Manage_Actions/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Actions" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Actions/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 

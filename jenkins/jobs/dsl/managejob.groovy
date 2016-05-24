@@ -2,23 +2,23 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def pertask_FolderName = projectFolderName + "/HCM-Core_per_Task"
-def businessunit_FolderName = pertask_FolderName + "/Manage_Business_Unit"
+def job_FolderName = pertask_FolderName + "/Manage_Job"
 
 // Repositories
 def hcmCoreConfig = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM-Core_Config"
 def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
-def retrieveConfig = freeStyleJob(businessunit_FolderName + "/Retrieve_Configuration")
-def businessunit = freeStyleJob(businessunit_FolderName + "/Business_Unit")
+def retrieveConfig = freeStyleJob(job_FolderName + "/Retrieve_Configuration")
+def job = freeStyleJob(job_FolderName + "/Manage_Job")
 
 // Pipeline
-def businessunit_pipeline = buildPipelineView(businessunit_FolderName + "/Manage_Business_Unit")
+def job_pipeline = buildPipelineView(job_FolderName + "/Manage_Job")
 
-businessunit_pipeline.with{
-    title('Manage Business Unit')
+job_pipeline.with{
+    title('Manage Job')
     displayedBuilds(5)
-    selectedJob(businessunit_FolderName + "/Retrieve_Configuration")
+    selectedJob(job_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
     refreshFrequency(5)
 }
@@ -29,7 +29,7 @@ retrieveConfig.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
-  authenticationToken('TWFuYWdlQnVzaW5lc3NVbml0')
+  authenticationToken('TWFuYWdlSm9i')
   scm{
     git{
       remote{
@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(businessunit_FolderName + "/Business_Unit"){
+      trigger(job_FolderName + "/Manage_Job"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -56,7 +56,7 @@ retrieveConfig.with{
   }
 }
 
-businessunit.with{
+job.with{
 	parameters{
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -86,7 +86,7 @@ businessunit.with{
         }
 		
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Business_Unit/jobs/Business_Unit/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Business Units" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Business_Unit/jobs/Retrieve_Configuration/workspace
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Job/jobs/Manage_Job/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Job" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Job/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 
 cd screenshots       
@@ -96,7 +96,7 @@ rm -rf $WORKSPACE/*
 rm -rf $WORKSPACE/.git $WORKSPACE/.settings
 rm -f $WORKSPACE/.classpath $WORKSPACE/.project
 mv screenshots $WORKSPACE
-sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > reportsummary.txt
 		''')
     }	
 }
