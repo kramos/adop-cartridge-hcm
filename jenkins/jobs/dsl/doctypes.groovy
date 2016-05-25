@@ -9,16 +9,16 @@ def hcmCoreConfig = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM-Core_Config"
 def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
-def retrieveConfig = freeStyleJob(assignmentstatus_FolderName + "/Retrieve_Configuration")
-def doctype = freeStyleJob(assignmentstatus_FolderName + "/Manage_Document_Types")
+def retrieveConfig = freeStyleJob(doctype_FolderName + "/Retrieve_Configuration")
+def doctype = freeStyleJob(doctype_FolderName + "/Manage_Document_Types")
 
 // Pipeline
-def doctype_pipeline = buildPipelineView(assignmentstatus_FolderName + "/Manage_Document_Types")
+def doctype_pipeline = buildPipelineView(doctype_FolderName + "/Manage_Document_Types")
 
 doctype_pipeline.with{
     title('Manage Document Types')
     displayedBuilds(5)
-    selectedJob(assignmentstatus_FolderName + "/Retrieve_Configuration")
+    selectedJob(doctype_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
     refreshFrequency(5)
 }
@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(assignmentstatus_FolderName + "/Manage_Document_Types"){
+      trigger(doctype_FolderName + "/Manage_Document_Types"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
