@@ -477,7 +477,18 @@ calendarevents.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-in progress
+#!/bin/bash
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Manage_Calendar_Events/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Calendar Events" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Retrieve_Configuration/workspace
+cd ..
+mkdir screenshots 
+cd screenshots       
+cp -avr $WORKSPACE/target/screenshots/* .
+cd ..
+rm -rf $WORKSPACE/*
+rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 		publishers{
