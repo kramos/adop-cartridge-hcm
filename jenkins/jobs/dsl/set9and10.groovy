@@ -2,37 +2,38 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def hfm_FolderName = projectFolderName + "/HCM_Features_Manager"
-def set7_FolderName = hfm_FolderName + "/Set_7_and_8"
+def set9_FolderName = hfm_FolderName + "/Set_9_and_10"
 
 // Repositories
-def hcmSet7Config = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set_7_8_Config"
+def hcmSet9Config = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_Set_9_10_Config"
 def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
-def retrieveConfig = freeStyleJob(set7_FolderName + "/Retrieve_Configuration")
-def reportingestablishment = freeStyleJob(set7_FolderName + "/Reporting_Establishments")
-def disablityorganization = freeStyleJob(set7_FolderName + "/Disablity_Organizations")
-def organizationtrees = freeStyleJob(set7_FolderName + "/Organization_Trees")
-def managegrade = freeStyleJob(set7_FolderName + "/Manage_Grade")
-def graderates = freeStyleJob(set7_FolderName + "/Grade_Rates")
-def gradeladders = freeStyleJob(set7_FolderName + "/Grade_Ladders")
-def jobfamilies = freeStyleJob(set7_FolderName + "/Job_Families")
-def managejob = freeStyleJob(set7_FolderName + "/Manage_Job")
-def managepositions = freeStyleJob(set7_FolderName + "/Manage_Positions")
+def retrieveConfig = freeStyleJob(set9_FolderName + "/Retrieve_Configuration")
+def positiontrees = freeStyleJob(set9_FolderName + "/Manage_Position_Trees")
+def talentnotification = freeStyleJob(set9_FolderName + "/Manage_Talent_Notifications")
+def ratingmodels = freeStyleJob(set9_FolderName + "/Manage_Profile_Rating_Models")
+def educationalestablishments = freeStyleJob(set9_FolderName + "/Manage_Educational_Establishments")
+def contenttypes = freeStyleJob(set9_FolderName + "/Manage_Profile_Content_Types")
+def contentitems = freeStyleJob(set9_FolderName + "/Manage_Profile_Content_Item")
+def profiletypes = freeStyleJob(set9_FolderName + "/Manage_Profile_Types")
+def instancequalifiers = freeStyleJob(set9_FolderName + "/Manage_Instance_Qualifiers")
+def calendarevents = freeStyleJob(set9_FolderName + "/Manage_Calendar_Events")
+def workshifts = freeStyleJob(set9_FolderName + "/Manage_Work_Shifts")
 
 // Pipeline
-def usecase7_pipeline = buildPipelineView(set7_FolderName + "/Set_7_and_8")
+def usecase9_pipeline = buildPipelineView(set9_FolderName + "/Set_9and_10")
 
-usecase7_pipeline.with{
-    title('Set 7 and 8')
+usecase9_pipeline.with{
+    title('Set 9 and 10')
     displayedBuilds(5)
-    selectedJob(set7_FolderName + "/Retrieve_Configuration")
+    selectedJob(set9_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
     refreshFrequency(5)
 }
 
 
-// Set 7 and 8 jobs
+// Set 9 and 10 jobs
 
 retrieveConfig.with{
     description("This retrieves the configuration file that will be used as a template for use case set 2 to the Oracle HCM Application")
@@ -43,7 +44,7 @@ retrieveConfig.with{
   scm{
     git{
       remote{
-        url(hcmSet7Config)
+        url(hcmSet9Config)
         credentials("adop-jenkins-master")
       }
       branch("*/master")
@@ -55,7 +56,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Business_Unit"){
+      trigger(set9_FolderName + "/Manage_Position_Trees"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -66,7 +67,7 @@ retrieveConfig.with{
   }
 }
 
-reportingestablishment.with{
+positiontrees.with{
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -100,7 +101,7 @@ in progress
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Disablity_Organizations"){
+      trigger(set9_FolderName + "/Manage_Talent_Notifications"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -111,7 +112,7 @@ in progress
   }
 }
 
-disablityorganization.with{
+talentnotification.with{
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -140,22 +141,12 @@ disablityorganization.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Disability_Organizations/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Disability Organizations" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
-		cd ..
-			mkdir screenshots 
-			cd screenshots       
-			cp -avr $WORKSPACE/target/screenshots/* .
-			cd ..
-			rm -rf $WORKSPACE/*
-			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
-			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE
-		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
+in progress
 		''')
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Organization_Trees"){
+      trigger(set9_FolderName + "/Manage_Profile_Rating_Models"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -166,7 +157,7 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
   }
 }
 
-organizationtrees.with {
+ratingmodels.with {
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -196,22 +187,12 @@ organizationtrees.with {
         }
 		
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Organization_Trees/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Organization Trees" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
-		cd ..
-			mkdir screenshots 
-			cd screenshots       
-			cp -avr $WORKSPACE/target/screenshots/* .
-			cd ..
-			rm -rf $WORKSPACE/*
-			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
-			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE
-		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
+in progress
 		''')
     }
 	publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Manage_Grade"){
+      trigger(set9_FolderName + "/Manage_Educational_Establishments"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -222,7 +203,7 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
   }
 }
 
-managegrade.with{
+educationalestablishments.with{
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -251,22 +232,12 @@ managegrade.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Manage_Grade/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Grades" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
-		cd ..
-			mkdir screenshots 
-			cd screenshots       
-			cp -avr $WORKSPACE/target/screenshots/* .
-			cd ..
-			rm -rf $WORKSPACE/*
-			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
-			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE	
-		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
+in progress
 		''')
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Grade_Rates"){
+      trigger(set9_FolderName + "/Manage_Profile_Content_Types"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -277,7 +248,7 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
   }
 }
 
-graderates.with{
+contenttypes.with{
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -306,22 +277,12 @@ graderates.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Grade_Rates/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Grade Rates" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
-		cd ..
-			mkdir screenshots 
-			cd screenshots       
-			cp -avr $WORKSPACE/target/screenshots/* .
-			cd ..
-			rm -rf $WORKSPACE/*
-			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
-			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE
-		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
+in progress
 		''')
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Grade_Ladders"){
+      trigger(set9_FolderName + "/Manage_Profile_Content_Item"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -332,7 +293,7 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
   }
 }
 
-gradeladders.with{
+contentitems.with{
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -361,12 +322,22 @@ gradeladders.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-in progress	
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Manage_Profile_Content_Item/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Profile Content Items" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Retrieve_Configuration/workspace
+cd ..
+mkdir screenshots 
+cd screenshots       
+cp -avr $WORKSPACE/target/screenshots/* .
+cd ..
+rm -rf $WORKSPACE/*
+rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > reportsummary.txt
 		''')
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Job_Families"){
+      trigger(set9_FolderName + "/Manage_Profile_Types"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -377,7 +348,7 @@ in progress
   }
 }
 
-jobfamilies.with{
+profiletypes.with{
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -406,22 +377,12 @@ jobfamilies.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Job_Families/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Job Families" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
-		cd ..
-			mkdir screenshots 
-			cd screenshots       
-			cp -avr $WORKSPACE/target/screenshots/* .
-			cd ..
-			rm -rf $WORKSPACE/*
-			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
-			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE
-		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
+in progress
 		''')
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Manage_Job"){
+      trigger(set9_FolderName + "/Manage_Instance_Qualifiers"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -432,7 +393,7 @@ java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/
   }
 }
 
-managejob.with{
+instancequalifiers.with{
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -461,7 +422,7 @@ managejob.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Manage_Job/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Job" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Manage_Instance_Qualifiers/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Instance Qualifiers" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 
 cd screenshots       
@@ -476,7 +437,7 @@ sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPA
 	}
 	publishers{
     downstreamParameterized{
-      trigger(set7_FolderName + "/Manage_Positions"){
+      trigger(set9_FolderName + "/Manage_Calendar_Events"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -487,7 +448,7 @@ sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPA
   }
 }
 
-managepositions.with{
+calendarevents.with{
 	parameters {
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -516,17 +477,52 @@ managepositions.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-				java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Manage_Positions/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Positions" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_7_and_8/jobs/Retrieve_Configuration/workspace
-		cd ..
-			mkdir screenshots 
-			cd screenshots       
-			cp -avr $WORKSPACE/target/screenshots/* .
-			cd ..
-			rm -rf $WORKSPACE/*
-			rm -rf $WORKSPACE/.git $WORKSPACE/.settings
-			rm -f $WORKSPACE/.classpath $WORKSPACE/.project
-        mv screenshots $WORKSPACE
-		sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
+in progress
+		''')
+	}
+		publishers{
+    downstreamParameterized{
+      trigger(set9_FolderName + "/Manage_Calendar_Events"){
+        condition("SUCCESS")
+		  parameters{
+          predefinedProp("B",'${BUILD_NUMBER}')
+          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+        }
+      }
+    }
+  }
+}
+
+workshifts.with{
+	parameters {
+		stringParam("B","","Build Number")
+		stringParam("PARENT_BUILD","","Parent Build Job")
+	}
+    wrappers {
+        preBuildCleanup()
+        sshAgent("adop-jenkins-master")
+    }
+    scm{
+        git{
+            remote{
+                url(hcmApp)
+                credentials("adop-jenkins-master")
+            }
+            branch("*/master")
+        }
+    }
+    environmentVariables {
+      env('WORKSPACE_NAME',workspaceFolderName)
+      env('PROJECT_NAME',projectFolderName)
+    }
+     steps {
+		maven{
+		rootPOM('pom.xml')
+		goals('clean install')
+		mavenInstallation("ADOP Maven")
+	}
+		shell('''#!/bin/bash
+in progress
 		''')
 	}
 }
