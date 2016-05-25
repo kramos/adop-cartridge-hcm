@@ -15,7 +15,7 @@ def status = freeStyleJob(assignmentstatus_FolderName + "/Manage_Assignment_Stat
 // Pipeline
 def status_pipeline = buildPipelineView(assignmentstatus_FolderName + "/Manage_Assignment_Status")
 
-persontypes_pipeline.with{
+status_pipeline.with{
     title('Manage Assignment Status	')
     displayedBuilds(5)
     selectedJob(assignmentstatus_FolderName + "/Retrieve_Configuration")
