@@ -2,23 +2,23 @@
 def workspaceFolderName = "${WORKSPACE_NAME}"
 def projectFolderName = "${PROJECT_NAME}"
 def pertask_FolderName = projectFolderName + "/HCM-Core_per_Task"
-def talentnotif_FolderName = pertask_FolderName + "/Manage_Talent_Notifications"
+def contenttypes_FolderName = pertask_FolderName + "/Manage_Profile_Content_Types"
 
 // Repositories
 def hcmCoreConfig = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM-Core_Config"
 def hcmApp = "ssh://jenkins@gerrit:29418/${PROJECT_NAME}/HCM_App_Repo"
 
 // Jobs
-def retrieveConfig = freeStyleJob(talentnotif_FolderName + "/Retrieve_Configuration")
-def talent = freeStyleJob(talentnotif_FolderName + "/Manage_Talent_Notifications")
+def retrieveConfig = freeStyleJob(contenttypes_FolderName + "/Retrieve_Configuration")
+def content = freeStyleJob(contenttypes_FolderName + "/Manage_Profile_Content_Types")
 
 // Pipeline
-def talent_pipeline = buildPipelineView(talentnotif_FolderName + "/Manage_Talent_Notifications")
+def content_pipeline = buildPipelineView(contenttypes_FolderName + "/Manage_Profile_Content_Types")
 
-talent_pipeline.with{
-    title('Manage Talent Notification')
+content_pipeline.with{
+    title('Manage Profile Content Types')
     displayedBuilds(5)
-    selectedJob(talentnotif_FolderName + "/Retrieve_Configuration")
+    selectedJob(contenttypes_FolderName + "/Retrieve_Configuration")
     showPipelineParameters()
     refreshFrequency(5)
 }
@@ -29,7 +29,7 @@ retrieveConfig.with{
     preBuildCleanup()
     sshAgent("adop-jenkins-master")
   }
-  authenticationToken('TWFuYWdlVGFsZW50Tm90aWZpY2F0aW9ucw==')
+  authenticationToken('TWFuYWdlUHJvZmlsZUNvbnRlbnRUeXBlcw==')
   scm{
     git{
       remote{
@@ -45,7 +45,7 @@ retrieveConfig.with{
   }
   publishers{
     downstreamParameterized{
-      trigger(talentnotif_FolderName + "/Manage_Talent_Notifications"){
+      trigger(contenttypes_FolderName + "/Manage_Profile_Content_Types"){
         condition("SUCCESS")
 		  parameters{
           predefinedProp("B",'${BUILD_NUMBER}')
@@ -56,7 +56,7 @@ retrieveConfig.with{
   }
 }
 
-talent.with{
+content.with{
 	parameters{
 		stringParam("B","","Build Number")
 		stringParam("PARENT_BUILD","","Parent Build Job")
@@ -86,7 +86,7 @@ talent.with{
         }
 		
 		shell('''#!/bin/bash
-java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Talent_Notifications/jobs/Manage_Talent_Notifications/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Talent Notifications" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Talent_Notifications/jobs/Retrieve_Configuration/workspace
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Profile_Content_Types/jobs/Manage_Profile_Content_Types/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Profile Content Types" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM-Core_per_Task/jobs/Manage_Profile_Content_Types/jobs/Retrieve_Configuration/workspace
 cd ..
 mkdir screenshots 
 cd screenshots       
