@@ -96,7 +96,17 @@ positiontrees.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-in progress
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Manage_Position_Trees/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Position Trees" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Retrieve_Configuration/workspace
+cd ..
+mkdir screenshots 
+cd screenshots       
+cp -avr $WORKSPACE/target/screenshots/* .
+cd ..
+rm -rf $WORKSPACE/*
+rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 	publishers{
@@ -252,7 +262,17 @@ educationalestablishments.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-in progress
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Manage_Educational_Establishments/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Educational Establishments" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Retrieve_Configuration/workspace
+cd ..
+mkdir screenshots 
+cd screenshots       
+cp -avr $WORKSPACE/target/screenshots/* .
+cd ..
+rm -rf $WORKSPACE/*
+rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 	publishers{
@@ -297,7 +317,18 @@ contenttypes.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-in progress
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Manage_Profile_Content_Types/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Profile Content Types" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Retrieve_Configuration/workspace
+cd ..
+mkdir screenshots 
+cd screenshots       
+cp -avr $WORKSPACE/target/screenshots/* .
+cd ..
+rm -rf $WORKSPACE/*
+rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
+
 		''')
 	}
 	publishers{
@@ -397,7 +428,17 @@ profiletypes.with{
 		mavenInstallation("ADOP Maven")
 	}
 		shell('''#!/bin/bash
-in progress
+java -jar /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Manage_Profile_Types/workspace/target/HCM-0.0.1-SNAPSHOT.jar -r "Manage Profile Types" -w $WORKSPACE -e /var/jenkins_home/jobs/Oracle/jobs/HCM/jobs/HCM_Features_Manager/jobs/Set_9_and_10/jobs/Retrieve_Configuration/workspace
+cd ..
+mkdir screenshots 
+cd screenshots       
+cp -avr $WORKSPACE/target/screenshots/* .
+cd ..
+rm -rf $WORKSPACE/*
+rm -rf $WORKSPACE/.git $WORKSPACE/.settings
+rm -f $WORKSPACE/.classpath $WORKSPACE/.project
+mv screenshots $WORKSPACE
+sed -n -e '/R E P O R T   S U M M A R Y/,/E N D   O F   R E P O R T/ p' $WORKSPACE/../builds/${BUILD_ID}/log > $WORKSPACE/reportsummary.txt
 		''')
 	}
 	publishers{
